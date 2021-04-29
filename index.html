@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.21.2/dist/globe.gl.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js'></script>
+
+    <script src="https://d3js.org/d3-color.v2.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+    <div class="container-title">
+        <div class='hero-spacer'>
+            <h1>The Year Is 2050</h1>
+            <p>Child mortality rates have dropped to zero.</p>
+            <p>Are you ready to scroll back in time?</p>
+            <button id="handleLanding" class="card">Begin</button>
+        </div>
+    </div>
+    <div id="globeViz" class="globeBlur"></div>
+    <div id='myDiv' style="width: 600px"></div>
+    <script src="script.js"></script>
+    <script src="regressor.js"></script>
+</body>
+
+</html>
