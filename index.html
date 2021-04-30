@@ -17,8 +17,7 @@
     <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
@@ -32,21 +31,49 @@
         <div class='hero-spacer'>
             <h1>The Year Is 2050</h1>
             <p>Child mortality rates have dropped to zero.</p>
-            <p>Are you ready to scroll back in time?</p>
+            <p>Are you ready to wind back in time?</p>
             <button id="handleLanding" class="card">Begin</button>
         </div>
     </div>
+
     <div id="globeViz" class="globeBlur"></div>
-    <!-- <a href="#Breakdown" class="scroll-down" address="true"></a> -->
-    <section>
-        <p>SCROLL DOWN CSS</p>
+    <section class="contain-scroll-button">
         <a href="#" class="scroll-down" address="true"></a>
     </section>
-    <section class="ok">
-        <p>OK SCROLL !</p>
-    </section>
 
-    <section id="mainContent">
+    <!-- Is placed over the entire globe as a grid to create symetrical arrangment. -->
+    <div id="globeInfoOverlay">
+        <div class="contain-items-left">
+            <div class="grid-item-a">
+                <h1>2050</h1>
+                <h2>Highest Mortality:</h2>
+                <h2>Egypt: 250</h2>
+                <h2>Lowest Mortality:</h2>
+                <h2>New Zealand: 1</h2>
+                <p>* Values represent national average per 1000.</p>
+            </div>
+            <div class="grid-item-b">
+            </div>
+        </div>
+
+        <div class="contain-items-right">
+            <div class="grid-right-item-a">
+                <div>
+                    <h2>Global Mean: 25</h2>
+                    <h2>Global Median: 29</h2>
+                </div>
+                <div>
+                    <p>* A higher median means most countries are less than the middle value of all countries.</p>
+                </div>
+                <h2>Project by Tomas Lawton.</h2>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <section class="ok">
         <h1>Breakdown</h1>
         <div id='myDiv' style="width: 600px"></div>
     </section>

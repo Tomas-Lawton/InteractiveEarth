@@ -1,10 +1,13 @@
 // ENABLE SCROLL AFTER ENTERED.
 
 const scrollToWorld = () => {
+    // disable scrolling in current view
+    document.querySelector('body').classList.add('stop-scrolling');
     //show landing text
     const overlayContainer = document.getElementsByClassName('container-title')[0];
     overlayContainer.style.display = "grid";
     document.getElementsByClassName('hero-spacer')[0].visibility = "visible";
+    document.getElementsByClassName('hero-spacer')[0].style.opacity = 1;
 
     console.log('page is fully loaded');
     const loader = document.getElementById('loader');
@@ -12,6 +15,7 @@ const scrollToWorld = () => {
     loader.style.display = 'none';
 
     const mainButton = document.getElementById("handleLanding");
+
     mainButton.addEventListener("click", () => {
         const worldElem = document.getElementById("globeViz");
         overlayContainer.style.display = "none";
@@ -22,23 +26,20 @@ const scrollToWorld = () => {
         setTimeout(function() {
             worldElem.style.filter = "none";
             worldElem.classList.remove('globeBlur');
-        }, 2000);
+            document.getElementsByClassName('contain-scroll-button')[0].style.opacity = 0.8;
+            document.getElementById('globeInfoOverlay').style.opacity = 1;
+        }, 2500);
     })
     scrollButton();
 }
 
 const scrollButton = () => {
-    // const button = document.getElementsByClassName('scroll-down')[0];
-    // const worldSection = document.querySelector('canvas');
-    // const mainContent = document.getElementById('mainContent');
-    // button.addEventListener('click', () => {
-    //     console.log(worldSection.scrollHeight)
-    //     worldSection.scrollTop = 1900;
-    //     console.log('scroll clicked');
-    // })
     $(function() {
         $('.scroll-down').click(function() {
+            document.querySelector('body').classList.remove('stop-scrolling');
             $('html, body').animate({ scrollTop: $('section.ok').offset().top }, 'slow');
+            document.getElementsByClassName('contain-scroll-button')[0].style.transition = "all 500ms";
+            document.getElementsByClassName('contain-scroll-button')[0].style.opacity = 0;
             return false;
         });
     });
@@ -94,9 +95,13 @@ const numberWithCommas = (x) => {
 function getPolygonLabel(flagName, d, c) {
     return `
             <div class="card">
-                 <h3>${d.NAME}</h3>
-                 <p>Cases: ${numberWithCommas(c.confirmed)}</p>
-                 <p>Deaths: ${numberWithCommas(c.deaths)}</p>
+                <h3 class="card-title">${d.NAME}</h3>
+                <tr>
+                    <td class="data-entry">Cases: ${numberWithCommas(c.confirmed)}</td>
+                </tr>
+                <tr>
+                    <td class="data-entry">Deaths: ${numberWithCommas(c.deaths)}</td>
+                </tr>
             </div>
           `;
 }
@@ -207,9 +212,9 @@ async function updatePointOfView() {
         world.pointOfView({
                 lat: latitude,
                 lng: longitude,
-                altitude: 1.95
+                altitude: 1.99
             },
-            5000
+            3000
         );
     } catch (e) {
         console.log("Unable to set point of view.");
