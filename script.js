@@ -1,5 +1,4 @@
 // ENABLE SCROLL AFTER ENTERED.
-
 const scrollToWorld = () => {
     // disable scrolling in current view
     document.querySelector('body').classList.add('stop-scrolling');
@@ -36,6 +35,13 @@ const scrollToWorld = () => {
 const scrollButton = () => {
     $(function() {
         $('.scroll-down').click(function() {
+            var elem = document.querySelector('input[type="range"]');
+            var rangeValue = function() {
+                var newValue = elem.value;
+                var target = document.querySelector('.value');
+                target.innerHTML = newValue;
+            }
+            elem.addEventListener("input", rangeValue);
             document.querySelector('body').classList.remove('stop-scrolling');
             $('html, body').animate({ scrollTop: $('section.ok').offset().top }, 'slow');
             document.getElementsByClassName('contain-scroll-button')[0].style.transition = "all 500ms";
@@ -208,7 +214,6 @@ function updatePolygonsData() {
 async function updatePointOfView() {
     try {
         const { latitude, longitude } = await getCoordinates();
-
         world.pointOfView({
                 lat: latitude,
                 lng: longitude,

@@ -62,26 +62,27 @@ body {
     top: 0px;
     left: 0px;
     color: white;
-    z-index: -1;
     opacity: 0;
     transition: all 1s ease-in;
     display: flex;
+    z-index: -1;
 }
 
 .contain-items-left {
     display: grid;
     width: 50vw;
     height: 100vh;
-    grid-template-columns: 10% 40% auto;
-    grid-template-rows: 10% 40% 50%;
+    grid-template-columns: 15% 40% auto;
+    grid-template-rows: 10vh 40% 50%;
+    z-index: 2;
 }
 
 .contain-items-right {
     display: grid;
     width: 50vw;
     height: 100vh;
-    grid-template-columns: auto 40% 10%;
-    grid-template-rows: 10% auto 10%;
+    grid-template-columns: auto 40% 15%;
+    grid-template-rows: 10vh auto 10%;
     text-align: right;
 }
 
@@ -94,7 +95,7 @@ body {
 
 .grid-item-a h1 {
     text-transform: uppercase;
-    font-size: 5em;
+    font-size: 6em;
 }
 
 .grid-item-a h2 {
@@ -288,10 +289,13 @@ p {
     transition: all .5s ease-in 3s;
 }
 
-.scroll-down {
+.center {
     position: absolute;
     bottom: 30px;
     left: 50%;
+}
+
+.scroll-down {
     margin-left: -16px;
     display: block;
     width: 32px;
@@ -335,6 +339,86 @@ p {
         -ms-transform: translateY(-8px);
         transform: translateY(-8px);
     }
+}
+
+
+/* slider */
+
+
+/* 
+.fix-slider {
+    display: grid;
+    width: 100vw;
+    grid-template-columns: 15% auto;
+} */
+
+
+/* 
+.fix-slider {
+    grid-template-columns: 15% 40% auto;
+}
+
+.flex-to-bottom {
+    z-index: 5;
+    position: absolute;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.val {
+    height: 300px;
+} */
+
+.val {
+    z-index: 5;
+    position: absolute;
+    bottom: 10%;
+    left: 7.5%;
+}
+
+.value {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    line-height: 1.5em;
+}
+
+.value::after {
+    content: '€';
+    margin-left: 5px;
+}
+
+input[type="range"] {
+    display: block;
+    writing-mode: bt-lr;
+    /* IE */
+    -webkit-appearance: slider-vertical;
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    height: 150px;
+    width: 5px;
+    outline: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #000;
+    width: 25px;
+    height: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1);
 }
 
 @media only screen and (max-width: 768px) {
