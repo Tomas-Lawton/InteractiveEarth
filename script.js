@@ -14,16 +14,38 @@ const scrollToWorld = () => {
     const mainButton = document.getElementById("handleLanding");
     mainButton.addEventListener("click", () => {
         const worldElem = document.getElementById("globeViz");
-
         overlayContainer.style.display = "none";
         worldElem.style.transition = "all 1s";
         worldElem.style.filter = "none";
+        loadEdit();
         // Remove
         setTimeout(function() {
             worldElem.style.filter = "none";
             worldElem.classList.remove('globeBlur');
         }, 2000);
     })
+    scrollButton();
+}
+
+const scrollButton = () => {
+    // const button = document.getElementsByClassName('scroll-down')[0];
+    // const worldSection = document.querySelector('canvas');
+    // const mainContent = document.getElementById('mainContent');
+    // button.addEventListener('click', () => {
+    //     console.log(worldSection.scrollHeight)
+    //     worldSection.scrollTop = 1900;
+    //     console.log('scroll clicked');
+    // })
+    $(function() {
+        $('.scroll-down').click(function() {
+            $('html, body').animate({ scrollTop: $('section.ok').offset().top }, 'slow');
+            return false;
+        });
+    });
+}
+
+async function loadEdit() {
+    await updatePointOfView();
 }
 
 const CASES_API = "https://raw.githubusercontent.com/wobsoriano/covid3d/master/data.json";
@@ -109,12 +131,20 @@ const initGlobe = async finishLoading => {
                 d === hoverD ? "rgb(21, 0, 37) 100.2%" : colorScale(getVal(d))
             )
         )
-        .polygonsTransitionDuration(300);
+        .polygonsTransitionDuration(300)
 
     // Auto-rotate
     world.controls().autoRotate = true;
     world.controls().autoRotateSpeed = 0.6;
     world.controls().enableZoom = false;
+    // Default
+    world.pointOfView({
+            lat: null,
+            lng: null,
+            altitude: 1.1
+        },
+        0
+    );
 
     await getCases();
     await window.addEventListener("resize", (event) => {
@@ -140,10 +170,10 @@ async function getCases() {
     featureCollection = (await request(GEOJSON_URL)).features;
     dates = Object.keys(countries.India);
     await updatePolygonsData();
-    await updatePointOfView();
 }
 
 function updatePolygonsData() {
+    console.log("CONTRIES: ", countries)
     const date = dates.length - 1;
     for (let x = 0; x < featureCollection.length; x++) {
         const country = featureCollection[x].properties.NAME;
@@ -177,8 +207,9 @@ async function updatePointOfView() {
         world.pointOfView({
                 lat: latitude,
                 lng: longitude,
+                altitude: 1.95
             },
-            1000
+            5000
         );
     } catch (e) {
         console.log("Unable to set point of view.");
