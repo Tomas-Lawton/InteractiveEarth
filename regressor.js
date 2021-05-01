@@ -1,4 +1,4 @@
-console.log('regress test');
+const dataByYear = {};
 
 const baseLayout = {
     title: 'Mortality Regression',
@@ -7,20 +7,47 @@ const baseLayout = {
     showlegend: false
 };
 
+const setupYearDataDict = () => {
+    for (let i = 1950; i <= 2050; i += 5) {
+        if (!dataByYear[i]) {
+            dataByYear[i] = [];
+        }
+    }
+    console.log("Years object: ", dataByYear);
+}
+
 
 const countryTraces = (csv_data) => {
     //Set up traces array for plotly.
     let dataTraces = [];
+    setupYearDataDict();
+    // Loaded array of unique countries names
+    Plotly.d3.csv("datacountries.csv", (data) => {
+        // console.log(data);
+        // let count = 0;
+        data.forEach((country) => {
+            // if (count === 3) { return };
+            // console.log(country.Name);
+            let country_data = csv_data.filter(d => d.country == country.Name);
+            const { past, future } = addTrace(country_data)
+            dataTraces.push(past);
+            dataTraces.push(future);
+            // count++;
+        });
+    });
 
-    // Create a unique list of names.
-    const countryTable = {}
+    console.log('All traces: ', dataTraces);
+    Plotly.newPlot('myDiv', dataTraces);
+    // Plotly.newPlot('myDiv', tracedata);
 
-    // for (const countryCollection in nameTable) {
-    let country_data = csv_data.filter(d => d.country == "Afghanistan");
-    dataTraces.push(addTrace(row));
-    // }
 
-    Plotly.newPlot('myDiv', dataTraces, baseLayout);
+    // Plotly.newPlot('myDiv', [{
+    //     x: [1, 2, 3, 4, 5],
+    //     y: [1, 2, 4, 8, 16]
+    // }], {
+    //     margin: { t: 0 }
+    // });
+
 }
 
 const addTrace = (country_data) => {
@@ -37,7 +64,7 @@ const addTrace = (country_data) => {
     ])
 
     // normalised - current year and result.
-    console.log(regression_data);
+    // console.log(regression_data);
     //Here is where we train our regressor, experiment with the order value
     let regression_result = regression.polynomial(regression_data, { order: 3 });
     //Now we have a trained predictor, lets actually use it!
@@ -51,18 +78,21 @@ const addTrace = (country_data) => {
         extension_y.push(stretch(prediction, 0, 1, min_mortality, max_mortality));
     }
 
-    return { //before
+    const past = { //before
         x: country_data.map(d => d.year),
         y: country_data.map(d => d.mortality),
         mode: 'lines'
-    }, { //prediction
+    }
+
+    const future = { //prediction
         x: extension_x,
         y: extension_y,
         mode: 'lines'
     };
 
-}
+    return { past, future };
 
+}
 
 Plotly.d3.csv("mortality.csv", countryTraces);
 
