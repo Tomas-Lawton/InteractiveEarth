@@ -52,8 +52,8 @@
 
 body {
     overflow: auto;
-    /* background-image: radial-gradient( circle 732px at -23.9% -25.1%, rgb(9, 14, 53) 6.1%, rgb(4, 0, 7) 100.2%); */
-    background-color: white;
+    background-image: radial-gradient( circle 732px at -23.9% -25.1%, rgb(9, 14, 53) 6.1%, rgb(4, 0, 7) 100.2%);
+    /* background-color: white; */
 }
 
 #globeInfoOverlay {
@@ -291,6 +291,11 @@ section.ok {
     margin-left: 1em;
     margin-right: 1em;
     color: white;
+    width: 100%;
+}
+
+#myDiv {
+    width: 100%;
 }
 
 p {
