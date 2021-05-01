@@ -1,3 +1,5 @@
+console.log('regress test');
+
 const baseLayout = {
     title: 'Mortality Regression',
     paper_bgcolor: "rgba( 144, 19, 254, 0)", //invisable backgrounds
@@ -20,13 +22,16 @@ function make_plot(csv_data) {
         stretch(d.mortality, min_mortality, max_mortality, 0, 1)
     ])
 
+    // normalised
+    console.log(regression_data);
+
     //Here is where we train our regressor, experiment with the order value
     let regression_result = regression.polynomial(regression_data, { order: 3 });
 
     //Now we have a trained predictor, lets actually use it!
     let extension_x = [];
     let extension_y = [];
-    for (let year = 2017; year < 2030; year++) {
+    for (let year = 2017; year < 2050; year++) {
         //We've still got to work in the normalised scale
         let prediction = regression_result.predict(stretch(year, 1950, 2017, 0, 1))[1]
 
