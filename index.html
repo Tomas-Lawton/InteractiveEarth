@@ -12,6 +12,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js" integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ==" crossorigin="anonymous"></script>
+
     <script src="https://d3js.org/d3-color.v2.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
@@ -45,29 +47,33 @@
 
     <div class="fix-slider">
         <div class="flex-to-bottom">
-            <input orient="vertical" type='range' min='1950' max='2050' value='2050' step='5' class='val' id='range-1' />
+            <div class="slidecontainer">
+                <div class="val" id="sketch-container"></div>
+            </div>
         </div>
     </div>
+
+    <div id='sound-button-contain'>
+        <img id="play-sound" src="assets/sound-on.svg" class="sound-icon-class">
+    </div>
+
     <!-- Is placed over the entire globe as a grid to create symetrical arrangment. -->
     <div id="globeInfoOverlay">
         <div class="contain-items-left">
             <div class="grid-item-a">
-                <h1>2050</h1>
+                <h1 id="current-year">2050</h1>
                 <h2>Highest Mortality:</h2>
                 <h2>Egypt: 250</h2>
                 <h2>Lowest Mortality:</h2>
                 <h2>New Zealand: 1</h2>
-                <p>* Values represent national average per 1000.</p>
-            </div>
-            <div class="grid-item-b">
-                <!-- <input orient="vertical" type='range' min='1950' max='2050' value='2050' step='5' class='val' id='range-1' /> -->
+                <p>* Per 1000 national average.</p>
             </div>
         </div>
 
         <div class="contain-items-right">
             <div class="grid-right-item-a">
                 <div>
-                    <p>* A higher median means most countries are less than the middle value of all countries.</p>
+                    <h2>* A higher median means most countries are less than the middle value of all countries.</h2>
                 </div>
                 <div>
                     <h2>Global Mean: 25</h2>

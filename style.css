@@ -68,6 +68,11 @@ body {
     z-index: -1;
 }
 
+#sketch-container {
+    opacity: 0;
+    transition: all 1s ease-in;
+}
+
 .contain-items-left {
     display: grid;
     width: 50vw;
@@ -98,7 +103,17 @@ body {
     font-size: 6em;
 }
 
+.grid-item-a h2:nth-child(even) {
+    color: #A92CA5
+}
+
+.grid-item-a h2:nth-child(odd) {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
 .grid-item-a h2 {
+    color: white;
     font-size: 1.8em;
 }
 
@@ -124,14 +139,8 @@ body {
     align-items: flex-end;
 }
 
-.grid-right-item-a p {
-    display: block;
-    text-align: right;
-    font-size: 0.8em;
-}
-
 .grid-right-item-a h2 {
-    font-size: 1.4em;
+    font-size: 1.1em;
 }
 
 
@@ -242,6 +251,22 @@ button:hover {
     text-align: left;
 }
 
+.sound-icon-class {
+    height: 28px;
+    width: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: left;
+}
+
+#sound-button-contain {
+    top: 50%;
+    z-index: 5;
+    position: absolute;
+    right: 7.5%;
+    display: flex;
+}
+
 
 /* Scroll Button */
 
@@ -344,35 +369,6 @@ p {
 
 /* slider */
 
-
-/* 
-.fix-slider {
-    display: grid;
-    width: 100vw;
-    grid-template-columns: 15% auto;
-} */
-
-
-/* 
-.fix-slider {
-    grid-template-columns: 15% 40% auto;
-}
-
-.flex-to-bottom {
-    z-index: 5;
-    position: absolute;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.val {
-    height: 300px;
-} */
-
 .val {
     z-index: 5;
     position: absolute;
@@ -380,45 +376,8 @@ p {
     left: 7.5%;
 }
 
-.value {
-    position: relative;
-    text-align: center;
-    width: 100%;
-    height: 50px;
-    line-height: 1.5em;
-}
-
-.value::after {
-    content: '€';
-    margin-left: 5px;
-}
-
-input[type="range"] {
-    display: block;
-    writing-mode: bt-lr;
-    /* IE */
-    -webkit-appearance: slider-vertical;
-    background: rgb(255, 255, 255);
-    border-radius: 20px;
-    height: 150px;
-    width: 5px;
-    outline: 0;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    background-color: #000;
-    width: 25px;
-    height: 150px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: .3s ease-in-out;
-    margin-left: 0;
-    margin-top: 0;
-}
-
-input[type="range"]::-webkit-slider-thumb:active {
-    transform: scale(1);
+input[type=range]:focus {
+    outline: none;
 }
 
 @media only screen and (max-width: 768px) {

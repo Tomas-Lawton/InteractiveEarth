@@ -1,3 +1,94 @@
+const roundToFive = x => Math.round(x / 5) * 5
+
+const upDateYearData = (offset) => {
+    const newYear = roundToFive(stretch(offset, startY, startY + lineHeight, 2050, 1950));
+    document.getElementById('current-year').innerHTML = newYear;
+}
+
+//Create custom slider using p5.
+const startY = 40;
+const radius = 40
+const startX = radius / 2;
+
+const lineHeight = 235;
+let ellipseY = startY
+let ellipseX = startX;
+let overBox = false;
+let locked = false;
+let yOffset = 0.0;
+
+function setup() {
+    let canvas = createCanvas(300, 300);
+    canvas.parent('sketch-container');
+}
+
+function draw() {
+    // background(255, 255, 255, 0);
+    stroke(240)
+    strokeWeight(5)
+    line(startX, startY, startX, startY + lineHeight)
+    noStroke();
+    fill(255, 255, 255);
+    ellipse(startX, startY, 10);
+    ellipse(startX, startY + lineHeight, 10);
+    fill(112, 21, 109);
+    if (
+        mouseX > ellipseX - radius &&
+        mouseX < ellipseX + radius &&
+        mouseY > ellipseY - radius &&
+        mouseY < ellipseY + radius
+    ) {
+        overBox = true;
+        if (!locked) {
+            // hover
+            fill(169, 44, 165);
+        }
+    } else {
+        fill(112, 21, 109);
+        overBox = false;
+    }
+    ellipse(ellipseX, ellipseY, radius);
+    upDateYearData(ellipseY); //kind of bad but then again so is p5
+}
+
+function mousePressed() {
+    if (overBox) {
+        locked = true;
+    } else {
+        locked = false;
+    }
+    yOffset = mouseY - ellipseY;
+}
+
+function mouseDragged() {
+    if (locked) {
+        ellipseY = mouseY - yOffset;
+    }
+    if (ellipseY > startY + lineHeight) {
+        ellipseY = startY + lineHeight;
+    }
+    if (ellipseY < startY) {
+        ellipseY = startY;
+    }
+    clear(); //bassically draw a transparent canvas
+}
+
+const initMusicPlayer = () => {
+    // start playing
+    let buttonToggle = true;
+    player = document.getElementById('play-sound');
+    console.log('playing music');
+    player.addEventListener('click', () => {
+        console.log('toggle');
+        if (buttonToggle) {
+            player.src = "assets/sound-off.svg";
+        } else {
+            player.src = "assets/sound-on.svg";
+        }
+        buttonToggle = !buttonToggle;
+    });
+}
+
 // ENABLE SCROLL AFTER ENTERED.
 const scrollToWorld = () => {
     // disable scrolling in current view
@@ -20,6 +111,8 @@ const scrollToWorld = () => {
         overlayContainer.style.display = "none";
         worldElem.style.transition = "all 1s";
         worldElem.style.filter = "none";
+
+        initMusicPlayer();
         loadEdit();
         // Remove
         setTimeout(function() {
@@ -27,6 +120,7 @@ const scrollToWorld = () => {
             worldElem.classList.remove('globeBlur');
             document.getElementsByClassName('contain-scroll-button')[0].style.opacity = 0.8;
             document.getElementById('globeInfoOverlay').style.opacity = 1;
+            document.getElementById('sketch-container').style.opacity = 1;
         }, 2500);
     })
     scrollButton();
