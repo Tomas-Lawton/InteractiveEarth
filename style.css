@@ -55,76 +55,56 @@ body {
     background-image: radial-gradient( circle 732px at -23.9% -25.1%, rgb(9, 14, 53) 6.1%, rgb(4, 0, 7) 100.2%);
 }
 
-#globeInfoOverlay {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    color: white;
-    opacity: 0;
-    transition: all 1s ease-in;
-    display: flex;
-    z-index: -1;
+#globeViz {
+    position: static;
 }
 
-.contain-items-left {
-    display: grid;
-    width: 50vw;
+.landing-page {
+    /* display: flex; */
+    margin: 40px 0;
+}
+
+.even-space {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* 
+.even-space:nth-child(odd) {
+    margin: 4em 8em;
+} */
+
+
+/* INTERFACE CONTROLS */
+
+.interface-container {
+    transition-duration: 1s;
+    width: 0;
+    background-color: rgb(208, 255, 0);
+}
+
+.interface-styles-left {
+    width: 20vw;
     height: 100vh;
-    grid-template-columns: 15% 40% auto;
-    grid-template-rows: 10vh 40% 50%;
-    z-index: 2;
 }
 
 .contain-items-right {
-    display: grid;
-    width: 50vw;
+    /* position: absolute; */
+    right: 0;
+    width: 10%;
     height: 100vh;
-    grid-template-columns: auto 40% 15%;
-    grid-template-rows: 10vh auto 10%;
     text-align: right;
-}
-
-.grid-item-a {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-}
-
-.grid-item-a h1 {
-    text-transform: uppercase;
-    font-size: 6em;
-}
-
-.grid-item-a h2 {
-    font-size: 1.8em;
-}
-
-.grid-item-a p {
-    font-size: 0.8em;
-}
-
-.grid-item-b {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: end;
-}
-
-.grid-right-item-a {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    z-index: -1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+    color: white;
 }
 
-.grid-right-item-a p {
+.grid-right-item-a div p {
     display: block;
     text-align: right;
     font-size: 0.8em;
@@ -210,7 +190,6 @@ button:hover {
     padding: 10px;
     color: #ffffff;
     transition: 0.3s;
-    /* background-color: "rgb(21, 0, 37) 100.2%"; */
     width: 125px;
     border-radius: 5px;
     z-index: 2;
@@ -244,10 +223,6 @@ button:hover {
 
 
 /* Scroll Button */
-
-body {
-    background-color: #000;
-}
 
 *,
  :after,
@@ -343,35 +318,6 @@ p {
 
 
 /* slider */
-
-
-/* 
-.fix-slider {
-    display: grid;
-    width: 100vw;
-    grid-template-columns: 15% auto;
-} */
-
-
-/* 
-.fix-slider {
-    grid-template-columns: 15% 40% auto;
-}
-
-.flex-to-bottom {
-    z-index: 5;
-    position: absolute;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.val {
-    height: 300px;
-} */
 
 .val {
     z-index: 5;
