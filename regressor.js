@@ -12,7 +12,7 @@ const baseLayout = {
 const setupYearDataDict = () => {
     for (let i = 1950; i <= 2050; i += 5) {
         if (!dataByYear[i]) {
-            dataByYear[i] = [];
+            dataByYear[i] = {};
         }
     }
     // console.log("Years object: ", dataByYear);
@@ -43,16 +43,25 @@ const countryTraces = (csv_data) => {
     Plotly.d3.csv("datacountries.csv", handleNames);
 }
 
+const setToZero = (input) => {
+    if (input < 0) {
+        input = 0;
+    }
+    return input;
+}
+
+const calculateMetaData = (year, dataValue, countryName) => {
+    // Calculates:
+    // max and min for given year
+    // global mean and median
+
+
+}
+
 const addTrace = (country_data, countryName) => {
-    // Available five year incriment data. (All except 2015)
-    const matchedDataPoints = country_data.filter(d => d.year in dataByYear);
-    // normalise and cast
     let mortality_data = country_data.map(d => Number(d.mortality));
     let min_mortality = Math.min(...mortality_data);
     let max_mortality = Math.max(...mortality_data);
-
-    // IF THE DATASET YEAR IS IN THE 5 YEAR INCRIMENT: USE THAT. 
-    // OTHERWISE, USE THE REGRESSOR TO PREDICT THE PAST BIG BRAIN././././.
 
     // normalise
     let regression_data = country_data.map(d => [stretch(d.year, 1950, 2017, 0, 1),
@@ -64,35 +73,37 @@ const addTrace = (country_data, countryName) => {
     let extension_x = [];
     let extension_y = [];
     for (let year = 2017; year <= 2050; year++) { //33 predictions
-        //We've still got to work in the normalised scale
         let prediction = regression_result.predict(stretch(year, 1950, 2017, 0, 1))[1]
         extension_x.push(year);
         //Make sure to un-normalise for displaying on the plot
         const mortalityPrediction = stretch(prediction, 0, 1, min_mortality, max_mortality);
         extension_y.push(mortalityPrediction);
+
         if (year in dataByYear) {
-            dataByYear[year].push({
-                country: countryName,
-                mortalityValue: mortalityPrediction
-            })
+            dataByYear[year][countryName] = {
+                mortalityValue: setToZero(mortalityPrediction)
+            }
+            calculateMetaData(year, mortalityPrediction, countryName);
         }
     }
-    // Add in 5 year incriments 1950-2010.
+    // Add in 5 year past incriments 1950-2010.
+    const matchedDataPoints = country_data.filter(d => d.year in dataByYear);
     matchedDataPoints.forEach((pastDataPoint) => {
-        dataByYear[pastDataPoint.year].push({
-            country: countryName,
-            mortalityValue: pastDataPoint.mortality
-        })
+        calculateMetaData(pastDataPoint.year, pastDataPoint.mortality, countryName);
+        dataByYear[pastDataPoint.year][countryName] = {
+            mortalityValue: setToZero(pastDataPoint.mortality)
+        }
     })
 
     // Add in 2015 data using regressor to fill the gap.
     const missingDataNormalised = regression_result.predict(stretch(2015, 1950, 2017, 0, 1))[1];
     const missingDataNormal = stretch(missingDataNormalised, 0, 1, min_mortality, max_mortality);
-    dataByYear[2015].push({
-        country: countryName,
-        mortalityValue: missingDataNormal
-    })
+    dataByYear[2015][countryName] = {
+        mortalityValue: setToZero(missingDataNormal)
+    }
+    calculateMetaData(2015, missingDataNormal, countryName);
 
+    // Return traces for chart
     const past = { //before
         x: country_data.map(d => d.year),
         y: country_data.map(d => d.mortality),

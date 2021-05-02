@@ -3,9 +3,7 @@ const roundToFive = x => Math.round(x / 5) * 5
 const upDateYearData = async(offset) => {
     const newYear = roundToFive(stretch(offset, startY, startY + lineHeight, 2050, 1950));
     document.getElementById('current-year').innerHTML = newYear;
-    // console.log("Earth data: ", dataByYear[newYear]);
     await updatePolygonsData(dataByYear[newYear]);
-
 }
 
 //Create custom slider using p5.
@@ -20,6 +18,8 @@ let overBox = false;
 let locked = false;
 let isDragging = false;
 let yOffset = 0.0;
+let ellipseRadius = radius;
+let radiusIsIncreasing = true;
 
 function setup() {
     let canvas = createCanvas(300, 300);
@@ -27,7 +27,8 @@ function setup() {
 }
 
 function draw() {
-    // background(255, 255, 255, 0);
+    clear(); //bassically draw a transparent canvas
+
     stroke(240)
     strokeWeight(5)
     line(startX, startY, startX, startY + lineHeight)
@@ -36,6 +37,7 @@ function draw() {
     ellipse(startX, startY, 10);
     ellipse(startX, startY + lineHeight, 10);
     fill(112, 21, 109);
+
     if (
         mouseX > ellipseX - radius &&
         mouseX < ellipseX + radius &&
@@ -51,9 +53,25 @@ function draw() {
         fill(112, 21, 109);
         overBox = false;
     }
-    ellipse(ellipseX, ellipseY, radius);
+
     if (isDragging) {
         upDateYearData(ellipseY);
+    }
+    animateThumb();
+}
+
+const animateThumb = () => {
+    ellipse(ellipseX, ellipseY, ellipseRadius);
+    if (radiusIsIncreasing) {
+        ellipseRadius += 0.2;
+    } else {
+        ellipseRadius -= 0.2;
+    }
+    if (ellipseRadius >= radius + 1) {
+        radiusIsIncreasing = false;
+    }
+    if (ellipseRadius <= radius - 1) {
+        radiusIsIncreasing = true;
     }
 }
 
@@ -77,7 +95,6 @@ function mouseDragged() {
     if (ellipseY < startY) {
         ellipseY = startY;
     }
-    clear(); //bassically draw a transparent canvas
 }
 
 function mouseReleased() {
@@ -86,6 +103,8 @@ function mouseReleased() {
 
 const initMusicPlayer = () => {
     // start playing
+    var audio = new Audio('assets/Sad Emotional Dramatic Ambient Music - Circle of Life (Download and Copyright Free).mp3');
+    audio.play();
     let buttonToggle = true;
     player = document.getElementById('play-sound');
     console.log('playing music');
@@ -93,8 +112,10 @@ const initMusicPlayer = () => {
         console.log('toggle');
         if (buttonToggle) {
             player.src = "assets/sound-off.svg";
+            audio.pause();
         } else {
             player.src = "assets/sound-on.svg";
+            audio.play();
         }
         buttonToggle = !buttonToggle;
     });
@@ -164,7 +185,11 @@ let featureCollection;
 
 ///HEAT MAPPER
 const getVal = (feat) => {
-    return Math.pow(feat.covidData.active / feat.properties.POP_EST, 1 / 4);
+    // console.log("FEATL ", feat);
+    return Math.pow(feat.mortalityData.mortality, 1 / 4);
+    // NOT NEEDED BECAUSE DATA ALREADY STANDARDISED.
+    // Maps the mortality proportionally to the country population.
+    // return Math.pow(feat.mortalityData.mortality / feat.properties.POP_EST, 1 / 4);
 };
 
 async function request(url) {
@@ -195,23 +220,29 @@ const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function getPolygonLabel(flagName, d, c) {
+function getPolygonLabel(countryInfo, countryData) {
     return `
             <div class="card">
-                <h3 class="card-title">${d.NAME}</h3>
+                <h3 class="card-title">${countryInfo.NAME}</h3>
                 <tr>
-                    <td class="data-entry">Cases: ${numberWithCommas(c.confirmed)}</td>
-                </tr>
-                <tr>
-                    <td class="data-entry">Deaths: ${numberWithCommas(c.deaths)}</td>
+                    <td class="data-entry">Mortality: ${
+                        numberWithCommas(Number( countryData.mortality).toPrecision(3))}</td>
                 </tr>
             </div>
           `;
 }
 
 const extruder = (feat) => {
-    // return (altitude + getVal(feat) * 1.001) * 0.6;
-    return altitude + (Math.sqrt(getVal(feat)) * 0.22);
+    return altitude + feat.mortalityData.mortality / 2000;
+    // return altitude + (Math.sqrt(feat.mortalityData.mortality) * 0.22);
+}
+
+const countryColours = (feat) => {
+    if (feat.mortalityData.mortality <= 0) {
+        return "rgba(255, 255, 255, 0.1)";
+    } else {
+        return colorScale(getVal(feat));
+    }
 }
 
 const initGlobe = async finishLoading => {
@@ -223,18 +254,21 @@ const initGlobe = async finishLoading => {
         .polygonAltitude(feat => extruder(feat))
         .backgroundColor("rgba(100, 100, 100, 0.0)")
         .showAtmosphere(true)
-        .polygonCapColor((feat) => colorScale(getVal(feat)))
-        .polygonSideColor((feat) => colorScale(getVal(feat)))
+        .polygonCapColor(feat => countryColours(feat))
+        .polygonSideColor(feat => countryColours(feat))
         .polygonStrokeColor(() => "rgba(255, 255, 255, 0.4)")
-        .polygonLabel(({ properties: d, covidData: c }) => {
-            const flagName = getFlagName(d);
-            return getPolygonLabel(flagName, d, c);
+        .polygonLabel(feat => {
+            console.log("NEW FEAT: ", feat);
+
+            const countryInfo = feat.properties;
+            const countryData = feat.mortalityData;
+            return getPolygonLabel(countryInfo, countryData);
         })
         .onPolygonHover((hoverD) =>
             world
             .polygonAltitude((d) => (d === hoverD ? extruder(d) + 0.05 : extruder(d)))
             .polygonCapColor((d) =>
-                d === hoverD ? "rgb(21, 0, 37) 100.2%" : colorScale(getVal(d))
+                d === hoverD ? "rgb(21, 0, 37) 100.2%" : countryColours(d)
             )
         )
         .polygonsTransitionDuration(300)
@@ -257,25 +291,14 @@ const initGlobe = async finishLoading => {
         world.width(window.innerWidth);
         world.height(window.innerHeight);
     });
-
-    function getFlagName(d) {
-        switch (d.ADMIN) {
-            case "France":
-                return "fr";
-            case "Norway":
-                return "no";
-            default:
-                return d.ISO_A2.toLowerCase();
-        }
-    }
     finishLoading();
 }
 
 async function getCases() {
     // All world countries
     countries = await request(CASES_API);
-    console.log("COVID, ", countries)
-        // All country data
+    // console.log("COVID, ", countries)
+    // All country data
     featureCollection = (await request(GEOJSON_URL)).features;
 
     dates = Object.keys(countries.India);
@@ -284,29 +307,41 @@ async function getCases() {
 }
 
 function updatePolygonsData(earthDataCurrentYear) {
-    console.log("EARTH: ", earthDataCurrentYear);
+    // console.log("EARTH: ", earthDataCurrentYear);
 
     // console.log("CONTRIES: ", countries)
-    const date = dates.length - 1;
     for (let x = 0; x < featureCollection.length; x++) {
+        // All availible countries on the globe.
         const country = featureCollection[x].properties.NAME;
-        if (countries[country]) {
-            featureCollection[x].covidData = {
-                confirmed: countries[country][dates[date]].confirmed,
-                deaths: countries[country][dates[date]].deaths,
-                recoveries: countries[country][dates[date]].recoveries,
-                active: countries[country][dates[date]].confirmed -
-                    countries[country][dates[date]].deaths -
-                    countries[country][dates[date]].recoveries,
+        if (earthDataCurrentYear[country]) {
+            featureCollection[x].mortalityData = {
+                mortality: earthDataCurrentYear[country].mortalityValue
             };
         } else {
-            featureCollection[x].covidData = {
-                confirmed: 0,
-                deaths: 0,
-                recoveries: 0,
-                active: 0,
+            featureCollection[x].mortalityData = {
+                mortality: 0,
             };
         }
+
+
+
+        // if (countries[country]) {
+        //     featureCollection[x].covidData = {
+        //         confirmed: countries[country][dates[date]].confirmed,
+        //         deaths: countries[country][dates[date]].deaths,
+        //         recoveries: countries[country][dates[date]].recoveries,
+        //         active: countries[country][dates[date]].confirmed -
+        //             countries[country][dates[date]].deaths -
+        //             countries[country][dates[date]].recoveries,
+        //     };
+        // } else {
+        //     featureCollection[x].covidData = {
+        //         confirmed: 0,
+        //         deaths: 0,
+        //         recoveries: 0,
+        //         active: 0,
+        //     };
+        // }
     }
     const maxVal = Math.max(...featureCollection.map(getVal));
     colorScale.domain([0, maxVal]);
