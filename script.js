@@ -1,9 +1,11 @@
 const roundToFive = x => Math.round(x / 5) * 5
 
-const upDateYearData = (offset) => {
+const upDateYearData = async(offset) => {
     const newYear = roundToFive(stretch(offset, startY, startY + lineHeight, 2050, 1950));
     document.getElementById('current-year').innerHTML = newYear;
-    console.log("Earth data: ", dataByYear[newYear]);
+    // console.log("Earth data: ", dataByYear[newYear]);
+    await updatePolygonsData(dataByYear[newYear]);
+
 }
 
 //Create custom slider using p5.
@@ -216,10 +218,8 @@ const initGlobe = async finishLoading => {
     const globeContainer = document.getElementById("globeViz");
 
     world = await Globe()(globeContainer)
-        // .onZoom((object) => enableZoom(false))
         .globeImageUrl(GLOBE_IMAGE_URL)
         .showGraticules(false)
-        // .polygonAltitude(altitude)
         .polygonAltitude(feat => extruder(feat))
         .backgroundColor("rgba(100, 100, 100, 0.0)")
         .showAtmosphere(true)
@@ -253,7 +253,7 @@ const initGlobe = async finishLoading => {
     );
 
     await getCases();
-    await window.addEventListener("resize", (event) => {
+    await window.addEventListener("resize", () => {
         world.width(window.innerWidth);
         world.height(window.innerHeight);
     });
@@ -272,15 +272,20 @@ const initGlobe = async finishLoading => {
 }
 
 async function getCases() {
+    // All world countries
     countries = await request(CASES_API);
+    console.log("COVID, ", countries)
+        // All country data
     featureCollection = (await request(GEOJSON_URL)).features;
-    // console.log("Countries: ", countries);
-    // console.log("COllection: ", featureCollection);
+
     dates = Object.keys(countries.India);
-    await updatePolygonsData();
+
+    await updatePolygonsData(dataByYear[2050]);
 }
 
-function updatePolygonsData() {
+function updatePolygonsData(earthDataCurrentYear) {
+    console.log("EARTH: ", earthDataCurrentYear);
+
     // console.log("CONTRIES: ", countries)
     const date = dates.length - 1;
     for (let x = 0; x < featureCollection.length; x++) {
