@@ -15,7 +15,6 @@ const setupYearDataDict = () => {
             dataByYear[i] = {};
         }
     }
-    // console.log("Years object: ", dataByYear);
 }
 
 const handleNames = (namesList) => {
@@ -24,7 +23,6 @@ const handleNames = (namesList) => {
         dataTraces.push(...addTrace(country_data, string.Name));
     });
     Plotly.newPlot('myDiv', dataTraces, baseLayout);
-    console.log("DONE: ", dataByYear);
     // var customNameTrace = [];
     // const customNameList = ["France", "Spain", "New Zealand", "Afghanistan", "Sudan", "Brazil", "Uganda"];
     // customNameList.forEach(string => {
@@ -33,7 +31,6 @@ const handleNames = (namesList) => {
     // });
 
     // Plotly.newPlot('myDiv2', customNameTrace, baseLayout);
-
 }
 const countryTraces = (csv_data) => {
     GLOBAL_CSV_DATA = csv_data;
@@ -41,21 +38,25 @@ const countryTraces = (csv_data) => {
     setupYearDataDict();
     // Read unique countries names
     Plotly.d3.csv("datacountries.csv", handleNames);
+    console.log("Got meta: ", dataByYear);
 }
 
 const setToZero = (input) => {
     if (input < 0) {
         input = 0;
     }
-    return input;
+    return Number(input).toPrecision(4);
 }
 
-const calculateMetaData = (year, dataValue, countryName) => {
-    // Calculates:
-    // max and min for given year
-    // global mean and median
+const updateMean = (currentMean, count, newVal) => {
+    const newMean = ((currentMean * count) + newVal) / (count + 1);
+    return [newMean, count += 1];
+}
 
-
+const updateMedian = (array, countryName, dataValue) => {
+    console.log("Median Array: ", array);
+    // prevMeta.Median.push({ countryName, dataValue })
+    // Add new object to do an efficient quick sort at the end. 
 }
 
 const addTrace = (country_data, countryName) => {
@@ -83,13 +84,11 @@ const addTrace = (country_data, countryName) => {
             dataByYear[year][countryName] = {
                 mortalityValue: setToZero(mortalityPrediction)
             }
-            calculateMetaData(year, mortalityPrediction, countryName);
         }
     }
     // Add in 5 year past incriments 1950-2010.
     const matchedDataPoints = country_data.filter(d => d.year in dataByYear);
     matchedDataPoints.forEach((pastDataPoint) => {
-        calculateMetaData(pastDataPoint.year, pastDataPoint.mortality, countryName);
         dataByYear[pastDataPoint.year][countryName] = {
             mortalityValue: setToZero(pastDataPoint.mortality)
         }
@@ -101,7 +100,6 @@ const addTrace = (country_data, countryName) => {
     dataByYear[2015][countryName] = {
         mortalityValue: setToZero(missingDataNormal)
     }
-    calculateMetaData(2015, missingDataNormal, countryName);
 
     // Return traces for chart
     const past = { //before

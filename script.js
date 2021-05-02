@@ -4,10 +4,68 @@ const upDateYearData = async(offset) => {
     const newYear = roundToFive(stretch(offset, startY, startY + lineHeight, 2050, 1950));
     document.getElementById('current-year').innerHTML = newYear;
     await updatePolygonsData(dataByYear[newYear]);
+    calculateMetaData(dataByYear[newYear]);
+
 }
 
+
+
+const calculateMetaData = (worldData) => {
+    console.log("INPUT: ", worldData)
+    var maxValue = 0;
+    var maxCountry = '';
+    var minValue = 10000;
+    var minCountry = '';
+
+    var Mean = null;
+    var meanCount = 0;
+    // Update at the end with a quicksort
+    var Median = [];
+
+    for (const item in worldData) {
+        if (Object.prototype.hasOwnProperty.call(worldData, item)) {
+            if (worldData[item].mortalityValue > maxValue) {
+                maxCountry = item;
+                maxValue = Number(worldData[item].mortalityValue);
+            }
+            if (worldData[item].mortalityValue < minValue && worldData[item].mortalityValue >= 1) {
+                minCountry = item;
+                minValue = Number(worldData[item].mortalityValue);
+            }
+        }
+        updateMean(Mean, meanCount, worldData[item].mortalityValue);
+    }
+
+    document.getElementById('highest').innerHTML = `${maxCountry}: ${maxValue}`;
+    document.getElementById('lowest').innerHTML = `${minCountry}: ${minValue}`;
+
+
+}
+
+// else {
+//     newMax = prevMeta.Max;
+// }
+// if (prevMeta.Min > dataValue) {
+//     newMin = [countryName, dataValue];
+// } else {
+//     newMin = prevMeta.Min;
+// }
+// Update with new
+// dataByYear[year]['META'] = {}
+// Mean: updateMean(prevMeta.Mean[0], prevMeta.Mean[1], dataValue),
+// Median: updateMedian(prevMeta.Median, countryName, dataValue)
+
+// Cache for future.
+// const prevMeta = dataByYear[year]['META'];
+
+
+
+
+
+
+
 //Create custom slider using p5.
-const startY = 40;
+const startY = 30;
 const radius = 40
 const startX = radius / 2;
 
@@ -158,6 +216,7 @@ const scrollToWorld = () => {
 }
 
 const scrollButton = () => {
+    // Gross JQuery code pen code with some extra things thrown in
     $(function() {
         $('.scroll-down').click(function() {
             document.querySelector('body').classList.remove('stop-scrolling');
@@ -258,8 +317,6 @@ const initGlobe = async finishLoading => {
         .polygonSideColor(feat => countryColours(feat))
         .polygonStrokeColor(() => "rgba(255, 255, 255, 0.4)")
         .polygonLabel(feat => {
-            console.log("NEW FEAT: ", feat);
-
             const countryInfo = feat.properties;
             const countryData = feat.mortalityData;
             return getPolygonLabel(countryInfo, countryData);
@@ -307,9 +364,6 @@ async function getCases() {
 }
 
 function updatePolygonsData(earthDataCurrentYear) {
-    // console.log("EARTH: ", earthDataCurrentYear);
-
-    // console.log("CONTRIES: ", countries)
     for (let x = 0; x < featureCollection.length; x++) {
         // All availible countries on the globe.
         const country = featureCollection[x].properties.NAME;
@@ -322,26 +376,6 @@ function updatePolygonsData(earthDataCurrentYear) {
                 mortality: 0,
             };
         }
-
-
-
-        // if (countries[country]) {
-        //     featureCollection[x].covidData = {
-        //         confirmed: countries[country][dates[date]].confirmed,
-        //         deaths: countries[country][dates[date]].deaths,
-        //         recoveries: countries[country][dates[date]].recoveries,
-        //         active: countries[country][dates[date]].confirmed -
-        //             countries[country][dates[date]].deaths -
-        //             countries[country][dates[date]].recoveries,
-        //     };
-        // } else {
-        //     featureCollection[x].covidData = {
-        //         confirmed: 0,
-        //         deaths: 0,
-        //         recoveries: 0,
-        //         active: 0,
-        //     };
-        // }
     }
     const maxVal = Math.max(...featureCollection.map(getVal));
     colorScale.domain([0, maxVal]);
