@@ -288,10 +288,9 @@ section {
 
 section.ok {
     /* background-color: #555; */
-    margin-left: 1em;
-    margin-right: 1em;
     color: white;
     width: 100%;
+    margin: 7.5%;
 }
 
 #myDiv {
