@@ -8,6 +8,27 @@ const upDateYearData = async(offset) => {
 
 }
 
+// Doing this to avoid slow sorting of array: modified for object mortaility values instead of pure array.
+// This allows me to take the middle of the result as the median.
+function quickSortBasic(array) {
+    if (array.length < 2) {
+        return array;
+    }
+
+    var pivot = array[0];
+    var lesserArray = [];
+    var greaterArray = [];
+
+    for (var i = 1; i < array.length; i++) {
+        if (array[i].value > pivot.value) {
+            greaterArray.push(array[i]);
+        } else {
+            lesserArray.push(array[i]);
+        }
+    }
+
+    return quickSortBasic(lesserArray).concat(pivot, quickSortBasic(greaterArray));
+}
 
 
 const calculateMetaData = (worldData) => {
@@ -33,13 +54,26 @@ const calculateMetaData = (worldData) => {
                 minValue = Number(worldData[item].mortalityValue);
             }
         }
-        updateMean(Mean, meanCount, worldData[item].mortalityValue);
+        const [newMean, newCount] = updateMean(Mean, meanCount, Number(worldData[item].mortalityValue));
+        Mean = newMean;
+        meanCount = newCount;
+        //Add country and value to Median and do a quicksort on it later after iteration. (Avoiding n^2)
+        const keyValue = {
+            key: item,
+            value: Number(worldData[item].mortalityValue)
+        }
+        Median.push(keyValue);
     }
 
-    document.getElementById('highest').innerHTML = `${maxCountry}: ${maxValue}`;
-    document.getElementById('lowest').innerHTML = `${minCountry}: ${minValue}`;
+    // simple quickSort from the internet
+    const sortedMedianArray = quickSortBasic(Median, 0, Median.length - 1);
+    const medianCountry = sortedMedianArray[Math.floor(sortedMedianArray.length / 2)];
 
-
+    document.getElementById('highest').innerHTML = `${maxCountry} ${maxValue}`;
+    document.getElementById('lowest').innerHTML = `${minCountry} ${minValue}`;
+    document.getElementById('mean').innerHTML = `Global Mean: ${Mean.toPrecision(4)}`;
+    document.getElementById('median').innerHTML = `Global Median: ${medianCountry.value.toPrecision(4)}`;
+    document.getElementById('median-country').innerHTML = `${medianCountry.key}`;
 }
 
 // else {
@@ -280,13 +314,18 @@ const numberWithCommas = (x) => {
 }
 
 function getPolygonLabel(countryInfo, countryData) {
+    console.log(countryInfo);
     return `
             <div class="card">
                 <h3 class="card-title">${countryInfo.NAME}</h3>
-                <tr>
-                    <td class="data-entry">Mortality: ${
-                        numberWithCommas(Number( countryData.mortality).toPrecision(3))}</td>
-                </tr>
+                <h3 class="card-title">${countryInfo.CONTINENT}</h3>
+            <tr>
+                <td class="data-entry">Mortality: ${
+                    numberWithCommas(Number( countryData.mortality).toPrecision(3))}</td>
+            </tr>
+            <tr>
+                <td class="data-entry">Economy: ${countryInfo.INCOME_GRP.slice(3)}</td>
+            </tr>
             </div>
           `;
 }
@@ -347,6 +386,10 @@ const initGlobe = async finishLoading => {
     await window.addEventListener("resize", () => {
         world.width(window.innerWidth);
         world.height(window.innerHeight);
+
+        // if
+
+
     });
     finishLoading();
 }
@@ -388,7 +431,7 @@ async function updatePointOfView() {
         world.pointOfView({
                 lat: latitude,
                 lng: longitude,
-                altitude: 1.99
+                altitude: 2
             },
             3000
         );

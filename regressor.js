@@ -49,6 +49,9 @@ const setToZero = (input) => {
 }
 
 const updateMean = (currentMean, count, newVal) => {
+    if (!currentMean) {
+        return [newVal, count];
+    }
     const newMean = ((currentMean * count) + newVal) / (count + 1);
     return [newMean, count += 1];
 }
