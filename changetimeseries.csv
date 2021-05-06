@@ -1,0 +1,85 @@
+Entity,Year,Child mortality
+Oman,1950,474.57
+Oman,1955,443.49
+Oman,1960,409.75
+Oman,1965,360.33
+Oman,1970,259.42
+Oman,1975,190.5
+Oman,1980,127.37
+Oman,1985,78.22
+Oman,1990,48.72
+Oman,1995,30.01
+Oman,2000,17.03
+Oman,2005,9.99
+Oman,2010,11.36
+Oman,2017,11.28
+Iran,1950,469.96
+Iran,1955,441.47
+Iran,1960,392.89
+Iran,1965,330.78
+Iran,1970,246.5
+Iran,1975,157.05
+Iran,1980,110.13
+Iran,1985,84.65
+Iran,1990,69.83
+Iran,1995,53.06
+Iran,2000,43.61
+Iran,2005,35.8
+Iran,2010,29.57
+Iran,2017,15.91
+Maldives,1950,427.24
+Maldives,1955,374.6
+Maldives,1960,319.66
+Maldives,1965,265.93
+Maldives,1970,215.09
+Maldives,1975,174.62
+Maldives,1980,137.78
+Maldives,1985,96.47
+Maldives,1990,67.59
+Maldives,1995,46.74
+Maldives,2000,31.71
+Maldives,2005,20.61
+Maldives,2010,13.93
+Maldives,2017,8.47
+Andorra,1950,25.4
+Andorra,1955,21.52
+Andorra,1960,18.08
+Andorra,1965,15.04
+Andorra,1970,12.46
+Andorra,1975,10.42
+Andorra,1980,9.04
+Andorra,1985,7.9
+Andorra,1990,6.58
+Andorra,1995,4.96
+Andorra,2000,3.75
+Andorra,2005,3.75
+Andorra,2010,3.09
+Andorra,2017,2.11
+Northern Mariana Islands,1950,33.81
+Northern Mariana Islands,1955,29.14
+Northern Mariana Islands,1960,24.38
+Northern Mariana Islands,1965,20.83
+Northern Mariana Islands,1970,17.65
+Northern Mariana Islands,1975,14.98
+Northern Mariana Islands,1980,12.69
+Northern Mariana Islands,1985,10.65
+Northern Mariana Islands,1990,9.27
+Northern Mariana Islands,1995,8.68
+Northern Mariana Islands,2000,8.12
+Northern Mariana Islands,2005,8.37
+Northern Mariana Islands,2010,8.85
+Northern Mariana Islands,2017,9.41
+Sweden,1950,28.54
+Sweden,1955,24.11
+Sweden,1960,22.35
+Sweden,1965,17.91
+Sweden,1970,14.72
+Sweden,1975,11.33
+Sweden,1980,8.89
+Sweden,1985,7.98
+Sweden,1990,7.67
+Sweden,1995,5.04
+Sweden,2000,4.36
+Sweden,2005,3.65
+Sweden,2010,3.36
+Sweden,2017,3.03

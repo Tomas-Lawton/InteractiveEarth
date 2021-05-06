@@ -1,11 +1,12 @@
 const roundToFive = x => Math.round(x / 5) * 5
+let year = 2050;
 
 const upDateYearData = async(offset) => {
     const newYear = roundToFive(stretch(offset, startY, startY + lineHeight, 2050, 1950));
+    year = newYear; //lazy global use
     document.getElementById('current-year').innerHTML = newYear;
     await updatePolygonsData(dataByYear[newYear]);
     calculateMetaData(dataByYear[newYear]);
-
 }
 
 // Doing this to avoid slow sorting of array: modified for object mortaility values instead of pure array.
@@ -76,28 +77,6 @@ const calculateMetaData = (worldData) => {
     document.getElementById('median-country').innerHTML = `${medianCountry.key}`;
 }
 
-// else {
-//     newMax = prevMeta.Max;
-// }
-// if (prevMeta.Min > dataValue) {
-//     newMin = [countryName, dataValue];
-// } else {
-//     newMin = prevMeta.Min;
-// }
-// Update with new
-// dataByYear[year]['META'] = {}
-// Mean: updateMean(prevMeta.Mean[0], prevMeta.Mean[1], dataValue),
-// Median: updateMedian(prevMeta.Median, countryName, dataValue)
-
-// Cache for future.
-// const prevMeta = dataByYear[year]['META'];
-
-
-
-
-
-
-
 //Create custom slider using p5.
 const startY = 30;
 const radius = 40
@@ -112,6 +91,7 @@ let isDragging = false;
 let yOffset = 0.0;
 let ellipseRadius = radius;
 let radiusIsIncreasing = true;
+let alpha = 255;
 
 function setup() {
     let canvas = createCanvas(300, 300);
@@ -150,19 +130,24 @@ function draw() {
         upDateYearData(ellipseY);
     }
     animateThumb();
+    let s = 'Scroll through time';
+    fill(255, alpha);
+    text(s, ellipseX + 30, ellipseY, 300, 40);
 }
 
 const animateThumb = () => {
     ellipse(ellipseX, ellipseY, ellipseRadius);
     if (radiusIsIncreasing) {
-        ellipseRadius += 0.2;
+        ellipseRadius += 0.1;
+        alpha += 5;
     } else {
-        ellipseRadius -= 0.2;
+        ellipseRadius -= 0.1;
+        alpha -= 5;
     }
-    if (ellipseRadius >= radius + 1) {
+    if (ellipseRadius >= radius + 1.5) {
         radiusIsIncreasing = false;
     }
-    if (ellipseRadius <= radius - 1) {
+    if (ellipseRadius <= radius - 1.5) {
         radiusIsIncreasing = true;
     }
 }
@@ -216,7 +201,7 @@ const initMusicPlayer = () => {
 // ENABLE SCROLL AFTER ENTERED.
 const scrollToWorld = () => {
     // disable scrolling in current view
-    document.querySelector('body').classList.add('stop-scrolling');
+    // document.querySelector('body').classList.add('stop-scrolling');
     //show landing text
     const overlayContainer = document.getElementsByClassName('container-title')[0];
     overlayContainer.style.display = "grid";
@@ -254,7 +239,7 @@ const scrollButton = () => {
     $(function() {
         $('.scroll-down').click(function() {
             document.querySelector('body').classList.remove('stop-scrolling');
-            $('html, body').animate({ scrollTop: $('section.ok').offset().top }, 'slow');
+            $('html, body').animate({ scrollTop: $('section.main-content').offset().top - 150 }, 'slow');
             document.getElementsByClassName('contain-scroll-button')[0].style.transition = "all 500ms";
             document.getElementsByClassName('contain-scroll-button')[0].style.opacity = 0;
             return false;
@@ -310,21 +295,23 @@ async function getCoordinates() {
 }
 
 const numberWithCommas = (x) => {
+    // online example because regex is scary
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function getPolygonLabel(countryInfo, countryData) {
-    console.log(countryInfo);
+    console.log('info, ', countryInfo);
     return `
             <div class="card">
                 <h3 class="card-title">${countryInfo.NAME}</h3>
                 <h3 class="card-title">${countryInfo.CONTINENT}</h3>
+                <br/>
             <tr>
-                <td class="data-entry">Mortality: ${
+                <td class="data-entry"><strong>${year > 2017 ? 'Predicted' : 'Historical'}</strong> Mortality: ${
                     numberWithCommas(Number( countryData.mortality).toPrecision(3))}</td>
             </tr>
             <tr>
-                <td class="data-entry">Economy: ${countryInfo.INCOME_GRP.slice(3)}</td>
+                <td class="data-entry">Current Economy: ${countryInfo.INCOME_GRP.slice(3)}</td>
             </tr>
             </div>
           `;
@@ -386,10 +373,6 @@ const initGlobe = async finishLoading => {
     await window.addEventListener("resize", () => {
         world.width(window.innerWidth);
         world.height(window.innerHeight);
-
-        // if
-
-
     });
     finishLoading();
 }
@@ -420,7 +403,11 @@ function updatePolygonsData(earthDataCurrentYear) {
             };
         }
     }
-    const maxVal = Math.max(...featureCollection.map(getVal));
+    // const maxVal = Math.max(...featureCollection.map(getVal));
+    // colorScale.domain([0, maxVal]);
+
+    // Hard coded because I know the range and want it linear
+    const maxVal = Math.pow(500, 1 / 4);
     colorScale.domain([0, maxVal]);
     world.polygonsData(featureCollection);
 }

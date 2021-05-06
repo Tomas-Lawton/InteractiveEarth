@@ -122,6 +122,15 @@ body {
     font-size: 0.8em;
 }
 
+.key-style {
+    text-align: right;
+}
+
+.push-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .grid-item-b {
     grid-column-start: 2;
     grid-column-end: 3;
@@ -221,7 +230,7 @@ button:hover {
     color: #ffffff;
     transition: 0.3s;
     /* background-color: "rgb(21, 0, 37) 100.2%"; */
-    width: 125px;
+    width: 185px;
     border-radius: 5px;
     z-index: 2;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -280,21 +289,94 @@ button:hover {
     padding: 0;
 }
 
-section {
+section .contain-scroll-button {
     height: 0;
     width: 0;
     display: table;
 }
 
-section.ok {
-    /* background-color: #555; */
+.main-content {
     color: white;
-    width: 100%;
+    text-align: left;
+}
+
+.full-wrapper {
+    background: rgba(8, 8, 8, 0.76);
+    /* standard drop */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.content-margin {
     margin: 7.5%;
 }
 
-#myDiv {
+.text-margin {
+    display: flex;
+    margin: 7.5% 35%;
+    flex-direction: column;
+}
+
+.main-content h2 {
+    font-family: 'Merriweather', serif;
+    font-weight: bold;
+    font-size: 2.6em;
+    margin: 2% 0;
     width: 100%;
+}
+
+.main-content p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1em;
+    width: 100%;
+    text-align: left;
+    margin: 2% 0;
+}
+
+.main-content .quote {
+    font-family: 'Merriweather', serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: left;
+    width: 100%;
+    margin: 2% 0;
+}
+
+.chart-center {
+    display: flex;
+    justify-content: center;
+}
+
+.text-split-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-child {
+    width: 45%;
+}
+
+.middle-margin {
+    margin: 7% 15%;
+}
+
+.middle-margin h2 {
+    padding: 7% 0;
+}
+
+.bottom-content-wrap {
+    margin-bottom: 2%;
+}
+
+.plot {
+    width: 50vw;
+}
+
+.plot-fullwidth {
+    width: 100%;
+}
+
+.plot-left {
+    justify-content: left;
 }
 
 p {
@@ -351,6 +433,13 @@ p {
     border-width: 0px 0 2px 2px;
 }
 
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-top: 10px;
+}
+
 @keyframes bounce {
     0%,
     100%,
@@ -366,6 +455,10 @@ p {
         -ms-transform: translateY(-8px);
         transform: translateY(-8px);
     }
+}
+
+.flex-to-bottom p {
+    opacity: 0;
 }
 
 

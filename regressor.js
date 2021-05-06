@@ -1,3 +1,14 @@
+function stretch(n, start1, stop1, start2, stop2) {
+    return ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
+};
+
+const setToZero = (input) => {
+    if (input < 0) {
+        input = 0;
+    }
+    return Number(input).toPrecision(4);
+}
+
 const dataByYear = {};
 let dataTraces = [];
 let GLOBAL_CSV_DATA;
@@ -6,7 +17,8 @@ const baseLayout = {
     title: 'Child Mortality Regression',
     paper_bgcolor: "rgba( 144, 19, 254, 0)", //invisable backgrounds
     plot_bgcolor: "rgba( 144, 19, 254, 0)",
-    showlegend: true
+    showlegend: true,
+    // margin={l=20, r=20, t=20, b=20},
 };
 
 const setupYearDataDict = () => {
@@ -17,35 +29,20 @@ const setupYearDataDict = () => {
     }
 }
 
-const handleNames = (namesList) => {
+const plotMain = (namesList) => {
     namesList.forEach(string => {
         let country_data = GLOBAL_CSV_DATA.filter(d => d.country == string.Name);
         dataTraces.push(...addTrace(country_data, string.Name));
     });
-    Plotly.newPlot('myDiv', dataTraces, baseLayout);
-    // var customNameTrace = [];
-    // const customNameList = ["France", "Spain", "New Zealand", "Afghanistan", "Sudan", "Brazil", "Uganda"];
-    // customNameList.forEach(string => {
-    //     let country_data = GLOBAL_CSV_DATA.filter(d => d.country == string);
-    //     customNameTrace.push(...addTrace(country_data, string));
-    // });
-
-    // Plotly.newPlot('myDiv2', customNameTrace, baseLayout);
+    // Plotly.newPlot('myDiv', dataTraces, baseLayout);
 }
 const countryTraces = (csv_data) => {
     GLOBAL_CSV_DATA = csv_data;
     //Init trace array for plotly
     setupYearDataDict();
     // Read unique countries names
-    Plotly.d3.csv("datacountries.csv", handleNames);
+    Plotly.d3.csv("datacountries.csv", plotMain);
     console.log("Got meta: ", dataByYear);
-}
-
-const setToZero = (input) => {
-    if (input < 0) {
-        input = 0;
-    }
-    return Number(input).toPrecision(4);
 }
 
 const updateMean = (currentMean, count, newVal) => {
@@ -54,12 +51,6 @@ const updateMean = (currentMean, count, newVal) => {
     }
     const newMean = ((currentMean * count) + newVal) / (count + 1);
     return [newMean, count += 1];
-}
-
-const updateMedian = (array, countryName, dataValue) => {
-    console.log("Median Array: ", array);
-    // prevMeta.Median.push({ countryName, dataValue })
-    // Add new object to do an efficient quick sort at the end. 
 }
 
 const addTrace = (country_data, countryName) => {
@@ -124,8 +115,3 @@ const addTrace = (country_data, countryName) => {
 }
 
 Plotly.d3.csv("mortality.csv", countryTraces);
-
-//This stretch function is actually just the map function from p5.js
-function stretch(n, start1, stop1, start2, stop2) {
-    return ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
-};

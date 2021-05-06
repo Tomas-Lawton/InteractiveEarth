@@ -1203,62 +1203,6 @@ Haiti,2000,108.98
 Haiti,2005,94.43
 Haiti,2010,171.66
 Haiti,2017,63.54
-High SDI,1950,77.32
-High SDI,1955,57.9
-High SDI,1960,47.66
-High SDI,1965,35.95
-High SDI,1970,29.05
-High SDI,1975,22
-High SDI,1980,16.87
-High SDI,1985,13.47
-High SDI,1990,11.21
-High SDI,1995,8.8
-High SDI,2000,7.52
-High SDI,2005,6.88
-High SDI,2010,5.89
-High SDI,2017,5.26
-High-income,1950,73.9
-High-income,1955,55.62
-High-income,1960,47.53
-High-income,1965,38.18
-High-income,1970,31.86
-High-income,1975,24.29
-High-income,1980,18.1
-High-income,1985,14.12
-High-income,1990,12.1
-High-income,1995,9.56
-High-income,2000,8.25
-High-income,2005,7.46
-High-income,2010,6.48
-High-income,2017,5.73
-High-income North America,1950,39.31
-High-income North America,1955,35.06
-High-income North America,1960,34.03
-High-income North America,1965,30.73
-High-income North America,1970,26.41
-High-income North America,1975,20.56
-High-income North America,1980,16.62
-High-income North America,1985,13.8
-High-income North America,1990,11.99
-High-income North America,1995,9.7
-High-income North America,2000,8.98
-High-income North America,2005,8.85
-High-income North America,2010,7.7
-High-income North America,2017,7.23
-High-middle SDI,1950,170.1
-High-middle SDI,1955,150.43
-High-middle SDI,1960,209.46
-High-middle SDI,1965,110.98
-High-middle SDI,1970,91.2
-High-middle SDI,1975,72.66
-High-middle SDI,1980,58.24
-High-middle SDI,1985,46.53
-High-middle SDI,1990,38.44
-High-middle SDI,1995,33.34
-High-middle SDI,2000,27.76
-High-middle SDI,2005,21.24
-High-middle SDI,2010,16.55
-High-middle SDI,2017,11.54
 Honduras,1950,250.37
 Honduras,1955,215.23
 Honduras,1960,190.55
@@ -1623,34 +1567,6 @@ Lithuania,2000,11.88
 Lithuania,2005,9.59
 Lithuania,2010,6.26
 Lithuania,2017,5.17
-Low SDI,1950,333.68
-Low SDI,1955,304.58
-Low SDI,1960,295.81
-Low SDI,1965,284.02
-Low SDI,1970,255.68
-Low SDI,1975,234.11
-Low SDI,1980,209.99
-Low SDI,1985,188.01
-Low SDI,1990,163.81
-Low SDI,1995,144.73
-Low SDI,2000,125.83
-Low SDI,2005,105.68
-Low SDI,2010,89.55
-Low SDI,2017,67.25
-Low-middle SDI,1950,295.59
-Low-middle SDI,1955,270.93
-Low-middle SDI,1960,306.3
-Low-middle SDI,1965,236.72
-Low-middle SDI,1970,207.3
-Low-middle SDI,1975,184.06
-Low-middle SDI,1980,157.1
-Low-middle SDI,1985,136.21
-Low-middle SDI,1990,117.76
-Low-middle SDI,1995,107.01
-Low-middle SDI,2000,97.28
-Low-middle SDI,2005,85.44
-Low-middle SDI,2010,72.09
-Low-middle SDI,2017,55.63
 Luxembourg,1950,62.07
 Luxembourg,1955,53
 Luxembourg,1960,42.57
@@ -1833,20 +1749,6 @@ Micronesia,2000,37.77
 Micronesia,2005,25.85
 Micronesia,2010,23.44
 Micronesia,2017,19.48
-Middle SDI,1950,246.12
-Middle SDI,1955,216.58
-Middle SDI,1960,539.14
-Middle SDI,1965,166.92
-Middle SDI,1970,137.44
-Middle SDI,1975,113.15
-Middle SDI,1980,93.53
-Middle SDI,1985,76.99
-Middle SDI,1990,61.69
-Middle SDI,1995,50.71
-Middle SDI,2000,42.3
-Middle SDI,2005,34.83
-Middle SDI,2010,28.18
-Middle SDI,2017,20.68
 Moldova,1950,188.8
 Moldova,1955,158.4
 Moldova,1960,128.19
@@ -2967,6 +2869,20 @@ United States of America,2000,9.19
 United States of America,2005,9.03
 United States of America,2010,7.85
 United States of America,2017,7.37
+United States of America Virgin Islands,1950,80.03
+United States of America Virgin Islands,1955,66.93
+United States of America Virgin Islands,1960,53.68
+United States of America Virgin Islands,1965,42.05
+United States of America Virgin Islands,1970,35.73
+United States of America Virgin Islands,1975,31.7
+United States of America Virgin Islands,1980,29.72
+United States of America Virgin Islands,1985,24.95
+United States of America Virgin Islands,1990,19.79
+United States of America Virgin Islands,1995,16.21
+United States of America Virgin Islands,2000,13.17
+United States of America Virgin Islands,2005,10.94
+United States of America Virgin Islands,2010,10.12
+United States of America Virgin Islands,2017,9.87
 Uruguay,1950,77.29
 Uruguay,1955,62.48
 Uruguay,1960,62.59

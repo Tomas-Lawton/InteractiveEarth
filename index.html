@@ -20,6 +20,8 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
@@ -32,7 +34,7 @@
     <div class="container-title">
         <div class='hero-spacer'>
             <h1>The Year Is 2050</h1>
-            <p>Child mortality rates have dropped to zero.</p>
+            <p>Child mortality rates across the world have dropped to near zero.</p>
             <p>Are you ready to wind back in time?</p>
             <button id="handleLanding" class="card">Begin</button>
         </div>
@@ -73,7 +75,13 @@
         <div class="contain-items-right">
             <div class="grid-right-item-a">
                 <div>
-                    <h2>* A higher median means most countries are less than the middle value of all countries.</h2>
+                    <img alt="heat-map-hey" width='100%' height=auto style="margin-right: -12px" src="assets/rangekey.svg" />
+                    <div class="push-right">
+                        <div style="width: 150px">
+                            <p class="key-style" style="text-align: right;">Deaths per 1000 children born</p>
+                        </div>
+                    </div>
+
                 </div>
                 <div>
                     <h2 id="mean"></h2>
@@ -85,17 +93,140 @@
         </div>
     </div>
 
+    <section class="main-content">
+        <div class="text-margin">
+            <h2>Our world in data...</h2>
+            <p class='quote'>"250 years ago, in the richest countries of the world, a third of the children did not live to see their fifth birthday.” Steven Pinker</p>
+            <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
+                for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+        </div>
 
 
-    <section class="ok">
-        <h1>Breakdown</h1>
-        <div id='myDiv'></div>
-        <!-- <div id='myDiv2'></div> -->
 
-    </section>
+        <div class="full-wrapper">
+            <div class="middle-margin">
+                <h2>Mortality rates since 1950</h2>
+                <!-- <div id='myDiv' style="width: 700px; height: 450px;"></div> -->
+                <div class="text-split-wrap">
+                    <div class=" flex-child">
+                        <h3>Current highest and lowest</h3>
+                        <div id='plot2'></div>
+                    </div>
+                    <div class=" flex-child">
+                        <h3>The highest and lowest change in mortality</h3>
+                        <div id='plot4'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <script src="script.js"></script>
-    <script src="regressor.js"></script>
+
+
+        <div class="text-margin">
+            <h2>Who's doing well?</h2>
+            <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
+                for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+        </div>
+
+        <div class="full-wrapper">
+            <div class="middle-margin">
+                <h2>Mortality rates</h2>
+                <!-- <div id='myDiv' style="width: 700px; height: 450px;"></div> -->
+                <div class="text-split-wrap">
+                    <div class="plot">
+                        <h3>Most improved by number deaths per 1000 births</h3>
+                        <div id='plot0'></div>
+                    </div>
+                    <!-- <div class="plot">
+                        <h3>Least Improved</h3>
+                        <div id='plot1'></div>
+                    </div> -->
+                    <div class="plot">
+                        <h3>Most and least improved by % decrease in deaths</h3>
+                        <div id='plot3'></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="full-wrapper">
+            <div class="middle-margin">
+
+                <h2>Chart of the cool thing</h2>
+            </div>
+        </div>
+
+        <div class="text-split-wrap middle-margin">
+            <div class="flex-child">
+                <h2>Thing one</h2>
+                <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge in
+                    the growth of the mobile market can mostly be a</p>
+            </div>
+            <div class="flex-child">
+                <h2>Thing two</h2>
+                <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge in
+                    the growth of the mobile market can mostly be a</p>
+            </div>
+        </div>
+
+        <div class="full-wrapper">
+            <div class="middle-margin">
+                <h2>Chart of the cool thing</h2>
+            </div>
+        </div>
+
+        <div class="text-margin">
+            <h2>Who's doing well?</h2>
+            <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
+                for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+        </div>
+
+        <div class="text-split-wrap middle-margin">
+            <div class="flex-child">
+                <h2>Thing one</h2>
+                <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge in
+                    the growth of the mobile market can mostly be a</p>
+            </div>
+            <div class="flex-child">
+                <h2>Thing two</h2>
+                <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge in
+                    the growth of the mobile market can mostly be a</p>
+            </div>
+        </div>
+
+        <section class='bottom-content-wrap middle-margin'>
+            <p>Find the source for this story <a href="#">here</a></p>
+            <h2>More From South Soju</h2>
+            <div class="contain-three"></div>
+            <hr />
+            <section class='footer'>
+                <div>Copyright MIT3008</div>
+
+                <div style="display: block;">
+                    <p style="text-align:center; display: block;"><strong>South Soju Post</strong></p>
+                    <p style="text-align:center; display: block;">May 2, 2021</p>
+                </div>
+
+                <div style="width: 20%; display: flex; justify-content: space-between;">
+                    <a href="#">About</a>
+                    <a href="#">Help</a>
+                    <a href="#">Legal</a>
+                </div>
+
+            </section>
+        </section>
+
+
+
+        </div>
+
+        <script src="script.js"></script>
+        <script src="regressor.js"></script>
+        <script src="plot.js"></script>
+
 </body>
 
 </html>
