@@ -301,9 +301,18 @@ section .contain-scroll-button {
 }
 
 .full-wrapper {
-    background: rgba(8, 8, 8, 0.76);
+    background: rgba(10, 10, 10, 0.76);
     /* standard drop */
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-bottom: 10px;
+}
+
+.white-wrapper {
+    /* background: white; */
+    /* color: rgba(8, 8, 8, 0.76); */
+    /* standard drop */
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-bottom: 20px;
 }
 
 .content-margin {
@@ -320,7 +329,7 @@ section .contain-scroll-button {
     font-family: 'Merriweather', serif;
     font-weight: bold;
     font-size: 2.6em;
-    margin: 2% 0;
+    margin: 20px 0;
     width: 100%;
 }
 
@@ -360,7 +369,18 @@ section .contain-scroll-button {
 }
 
 .middle-margin h2 {
-    padding: 7% 0;
+    padding-top: 40px
+}
+
+.frame-style {
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    transition: 0.3s;
+    border-radius: 5px;
+    /* 5px rounded corners */
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-color: white;
 }
 
 .bottom-content-wrap {

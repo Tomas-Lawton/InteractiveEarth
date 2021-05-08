@@ -178,3 +178,15 @@ const handleChangeTimeSeries = (data) => {
 
 Plotly.d3.csv("changetimeseries.csv", handleChangeTimeSeries);
 Plotly.d3.csv("recenthistory.csv", handleChangeTimeSeries);
+
+
+const handleCombinedData = (data) => {
+    console.log("BUBBLE: ", data);
+
+
+}
+
+
+
+
+Plotly.d3.csv("recenthistory.csv", handleCombinedData);
