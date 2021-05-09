@@ -1,3 +1,8 @@
+// duplicated from script.js
+const maxVal = Math.pow(600, 1 / 4);
+colorScale.domain([0, maxVal]);
+// 
+
 const lineColours = [
     '#444444',
     '#540851',
@@ -9,14 +14,19 @@ const lineColours = [
 
 // I've #lostheplot
 const mainPlotLayout = {
-    margin: { 'l': 23, 'r': 20, 't': 20, 'b': 120 },
+    margin: { 'l': 30, 'r': 20, 't': 20, 'b': 120 },
     paper_bgcolor: "rgba( 144, 19, 254, 0)", //invisable backgrounds
     plot_bgcolor: "rgba( 144, 19, 254, 0)",
     font: {
         color: '#ffffff'
     },
     showlegend: true,
-    barmode: 'group'
+    barmode: 'group',
+    font: {
+        family: 'DM Sans, sans-serif',
+        size: 15,
+        color: '#ffffff'
+    },
 };
 // Change this to compare
 var mostChangeInNumDeaths = {
@@ -91,7 +101,6 @@ Plotly.newPlot('plot3', groupTracePercent, mainPlotLayout);
 
 const handleChangeTimeSeries = (data) => {
     var tracesArray = [];
-    console.log("changeplot: ", data);
     // Data is pre-sorted.
     // Package array values by country key
     const countryNames = {}
@@ -130,7 +139,6 @@ const handleChangeTimeSeries = (data) => {
             x: [],
             y: [],
         };
-        console.log("trace: ", thisTrace);
         for (const elem of countrySet) {
             // console.log(elem);
             thisTrace.x.push(elem.Year);
@@ -140,11 +148,8 @@ const handleChangeTimeSeries = (data) => {
         tracesArray.push(thisTrace);
         lineCount++;
     }
-
-    console.log("TRACES: ", tracesArray);
-
-    // const innerChartSize = (innerWidth - innerWidth * 0.28)
-    const innerChartSize = (innerWidth / 15) * 4.5;
+    const innerChartSize = (innerWidth - innerWidth * 0.28)
+        // const innerChartSize = (innerWidth / 15) * 4.5;
 
     var layoutExtension = {
         ...mainPlotLayout,
@@ -181,12 +186,141 @@ Plotly.d3.csv("recenthistory.csv", handleChangeTimeSeries);
 
 
 const handleCombinedData = (data) => {
-    console.log("BUBBLE: ", data);
+    var baseTrace = {
+        x: [],
+        y: [],
+        text: [],
+        mode: 'markers',
+        marker: {
+            color: [],
+            size: []
+        }
+    };
+
+    for (const row of data) {
+        const nourishment = row['Prevalence of undernourishment (% of population)'];
+        const disease = row['Disease Burden'];
+        const mortality = row['Child mortality (IHME, 2018)'];
+        if (nourishment > 0 &&
+            nourishment !== '#N/A' &&
+            disease > 0 &&
+            disease !== '#N/A') {
+            baseTrace.y.push(nourishment);
+            baseTrace.x.push(disease);
+            baseTrace.marker.size.push(mortality / 2);
+            baseTrace.text.push(row.Country);
+            baseTrace.marker.color.push(colorScale(Math.pow(mortality * 2, 1 / 4)));
+        }
+    }
 
 
+    var layout = {
+        ...mainPlotLayout,
+        showlegend: false,
+        width: innerWidth - innerWidth * 0.29,
+        height: innerHeight * 0.85,
+        legend: { "orientation": "h" },
+        margin: { 'l': 20, 'r': 20, 't': 10, 'b': 30 },
+        xaxis: {
+            autorange: true,
+            // type: 'date',
+            gridcolor: "rgba(255,255,255,0.1)",
+        },
+        yaxis: {
+            autorange: true,
+            // range: ['0', '500'],
+            // type: 'linear',
+            gridcolor: "rgba(255,255,255,0.1)",
+        }
+    };
+    Plotly.newPlot('BUBBLETROUBLE', [baseTrace], layout);
+}
+
+
+const reuseLayout = {
+    ...mainPlotLayout,
+    showlegend: false,
+    width: innerWidth / 3.2,
+    height: innerHeight * 0.4,
+    legend: { "orientation": "h" },
+    margin: { 'l': 30, 'r': 20, 't': 10, 'b': 30 },
+    xaxis: {
+        autorange: true,
+        gridcolor: "rgba(255,255,255,0.1)",
+    },
+    yaxis: {
+        autorange: true,
+        gridcolor: "rgba(255,255,255,0.1)",
+    }
+};
+
+const handleCombinedGEO = (data) => {
+    var baseTrace = {
+        x: [],
+        y: [],
+        text: [],
+        mode: 'markers',
+        marker: {
+            color: [],
+            size: []
+        }
+    };
+
+    for (const row of data) {
+        const nourishment = row['Longitude'];
+        const disease = row['Latitude'];
+        const mortality = row['Child mortality (IHME, 2018)'];
+        if (nourishment > 0 &&
+            nourishment !== '#N/A' &&
+            disease > 0 &&
+            disease !== '#N/A') {
+            baseTrace.y.push(nourishment);
+            baseTrace.x.push(disease);
+            baseTrace.marker.size.push(mortality / 2);
+            baseTrace.text.push(row.Country);
+            baseTrace.marker.color.push(colorScale(Math.pow(mortality * 2, 1 / 4)));
+        }
+    }
+
+
+    Plotly.newPlot('country-info-0', [baseTrace], reuseLayout);
+}
+
+
+const handleCombinedSizeandPop = (data) => {
+    var baseTrace = {
+        x: [],
+        y: [],
+        text: [],
+        mode: 'markers',
+        marker: {
+            color: [],
+            size: []
+        }
+    };
+
+    for (const row of data) {
+        const nourishment = row['Landmass'];
+        const disease = row['Total Population'];
+        const mortality = row['Child mortality (IHME, 2018)'];
+        if (nourishment > 0 &&
+            nourishment !== '#N/A' &&
+            disease > 0 &&
+            disease !== '#N/A') {
+            baseTrace.y.push(nourishment);
+            baseTrace.x.push(disease);
+            baseTrace.marker.size.push(mortality / 2);
+            baseTrace.text.push(row.Country);
+            baseTrace.marker.color.push(colorScale(Math.pow(mortality * 2, 1 / 4)));
+        }
+    }
+
+    Plotly.newPlot('country-info-1', [baseTrace], reuseLayout);
 }
 
 
 
+Plotly.d3.csv("combined/2017combined.csv", handleCombinedData);
 
-Plotly.d3.csv("recenthistory.csv", handleCombinedData);
+Plotly.d3.csv("combined/combinedcountryinfo.csv", handleCombinedGEO);
+Plotly.d3.csv("combined/combinedcountryinfo.csv", handleCombinedSizeandPop);

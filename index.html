@@ -36,6 +36,11 @@
             <h1>The Year Is 2050</h1>
             <p>Child mortality rates across the world have dropped to near zero.</p>
             <p>Are you ready to wind back in time?</p>
+            <!-- <div class="text-margin">
+                <h2>Who's doing well?</h2>
+                <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India
+                    accounting for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+            </div> -->
             <button id="handleLanding" class="card">Begin</button>
         </div>
     </div>
@@ -66,9 +71,9 @@
                 <h1 id="current-year">2050</h1>
                 <h2>Highest Mortality:</h2>
                 <h2 id="highest"></h2>
-                <h2>Lowest Mortality:</h2>
+                <h2>Country Counter:</h2>
                 <h2 id="lowest"></h2>
-                <p>* Per 1000 national average.</p>
+                <p id="info-text"></p>
             </div>
         </div>
 
@@ -95,8 +100,55 @@
 
     <section class="main-content">
         <div class="text-margin">
+            <p class='quote'>250 years ago, in the richest countries of the world, a third of the children did not live to see their fifth birthday - Steven Pinker</p>
             <h2>Our world in data...</h2>
-            <p class='quote'>"250 years ago, in the richest countries of the world, a third of the children did not live to see their fifth birthday.” Steven Pinker</p>
+            <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
+                for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+            <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
+                for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+        </div>
+
+        <div class="middle-margin-custom">
+            <a class="dropdown-link">
+                <div class="globe-contain">
+                    <h2>Learn about China's mortality rate</h2>
+                    <div class="globe-space">
+                        <img alt="globe button" width="60x" height=auto class="globe-grow" src="assets/globe.svg" />
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <hr width="100%" class='zero-margins' />
+        <div class="dropdown-tab">
+
+            <div class="text-split-wrap middle-margin">
+                <div class="flex-child">
+                    <h2>Thing one</h2>
+                    <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge
+                        in the growth of the mobile market can mostly be a</p>
+                </div>
+                <div class="text-split-wrap flex-child">
+                    <img src="assets/birthdeathrate.png" class="frame-style-image" />
+                </div>
+            </div>
+        </div>
+
+        <div class="full-wrapper">
+            <div class="middle-margin">
+                <h2>Child mortality, population nourishment and disease burden in 2017</h2>
+                <div class='mylegend'>
+                    <p>Y axis: Prevalence of undernourishment (% of population).</p>
+                    <p>X axis: Disability Adjusted Life Years per 100,000 people.</p>
+                    <p>(One <a href="https://www.who.int/mental_health/management/depression/daly/en/">DALY</a> = one year of healthy life lost due to living with disease or premature death from a disease)</p>
+                    <p>Bubble size: Number of deaths per 1000 births in first 5 years of life.</p>
+                </div>
+                <div style="margin-top: 10px" id="BUBBLETROUBLE"></div>
+            </div>
+        </div>
+
+        <div class="text-margin">
+            <h2>Who's doing well?</h2>
             <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
                 for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
         </div>
@@ -106,25 +158,16 @@
 
         <div class="full-wrapper">
             <div class="middle-margin">
-                <h2>Heat map of infectious disease 1990-2017</h2>
+                <h2>Mortality and Country Geography</h2>
                 <div class="text-split-wrap">
-                    <iframe src="https://ourworldindata.org/grapher/dalys-rate-from-all-causes" loading="lazy" class="frame-style"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="full-wrapper">
-            <div class="middle-margin">
-                <h2>Mortality rates since 1950</h2>
-                <!-- <div id='myDiv' style="width: 700px; height: 450px;"></div> -->
-                <div class="text-split-wrap">
-                    <div class=" flex-child">
-                        <h3>Current highest and lowest</h3>
-                        <div id='plot2'></div>
+                    <div class="plot">
+                        <h3>Mortality and Longitude and Latitude</h3>
+                        <div id="country-info-0" class="flex-child"></div>
                     </div>
-                    <div class=" flex-child">
-                        <h3>The highest and lowest change in mortality</h3>
-                        <div id='plot4'></div>
+
+                    <div class="plot">
+                        <h3>Mortality and Size and Population</h3>
+                        <div id="country-info-1" class="flex-child"></div>
                     </div>
                 </div>
             </div>
@@ -140,32 +183,29 @@
 
         <div class="full-wrapper">
             <div class="middle-margin">
-                <h2>Mortality rates</h2>
+                <h2>Mortality rates since 1950</h2>
                 <!-- <div id='myDiv' style="width: 700px; height: 450px;"></div> -->
-                <div class="text-split-wrap">
-                    <div class="plot">
-                        <h3>Most improved by number deaths per 1000 births</h3>
-                        <div id='plot0'></div>
-                    </div>
-                    <!-- <div class="plot">
-                        <h3>Least Improved</h3>
-                        <div id='plot1'></div>
-                    </div> -->
-                    <div class="plot">
-                        <h3>Most and least improved by % decrease in deaths</h3>
-                        <div id='plot3'></div>
-                    </div>
+                <div>
+                    <h3>Current highest and lowest</h3>
+                    <div id='plot2'></div>
                 </div>
-
-
             </div>
-
         </div>
+
+        <div class="text-margin">
+            <h2>Who's doing well?</h2>
+            <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
+                for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+        </div>
+
 
         <div class="full-wrapper">
             <div class="middle-margin">
-
-                <h2>Chart of the cool thing</h2>
+                <h2>Mortality rates since 1950</h2>
+                <div>
+                    <h3>Greatest and least change in mortality</h3>
+                    <div id='plot4'></div>
+                </div>
             </div>
         </div>
 
@@ -175,6 +215,17 @@
                 <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge in
                     the growth of the mobile market can mostly be a</p>
             </div>
+            <div class="plot">
+                <h3>Most improved by number deaths per 1000 births</h3>
+                <div id='plot0'></div>
+            </div>
+        </div>
+
+        <div class="text-split-wrap middle-margin">
+            <div class="plot">
+                <h3>Most and least improved by % decrease in deaths</h3>
+                <div id='plot3'></div>
+            </div>
             <div class="flex-child">
                 <h2>Thing two</h2>
                 <p> the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting for 1.1 billion. The surge in
@@ -182,9 +233,21 @@
             </div>
         </div>
 
-        <div class="full-wrapper">
-            <div class="middle-margin">
-                <h2>Chart of the cool thing</h2>
+        <div class="middle-margin-custom">
+            <a class="dropdown-link">
+                <div class="globe-contain">
+                    <h2>Learn about disease burden and GDP</h2>
+                    <div class="globe-space">
+                        <img alt="globe button" width="60x" height=auto class="globe-grow" src="assets/globe.svg" />
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <hr width="100%" class='zero-margins' />
+        <div class="dropdown-tab">
+            <div class="text-split-wrap zero-margins">
+                <iframe src="https://ourworldindata.org/grapher/dalys-to-ncds-vs-gdp?time=earliest..latest" loading="lazy" class="frame-style"></iframe>
             </div>
         </div>
 
@@ -192,6 +255,23 @@
             <h2>Who's doing well?</h2>
             <p>The number of mobile phone users around the world is expected to exceed 5 billion this year. Mobile penetration is set to continue growing by up to 67 per cent with China on target to contribute 1.5 billion mobile connections and India accounting
                 for 1.1 billion. The surge in the growth of the mobile market can mostly be attributed to the reduced cost and availability of smartphones.</p>
+        </div>
+
+        <div class="full-wrapper">
+            <div class="middle-margin">
+                <h2>Nourishment and Disease Burden 30 Year Prediction</h2>
+                <div class="text-split-wrap">
+                    <div class="plot">
+                        <h3>Nourishment Regression</h3>
+                        <div id='nourishment-plot' class="flex-child"></div>
+                    </div>
+
+                    <div class="plot">
+                        <h3>DALY Regression</h3>
+                        <div id='disease-plot' class="flex-child"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="text-split-wrap middle-margin">
@@ -209,8 +289,31 @@
 
         <section class='bottom-content-wrap middle-margin'>
             <p>Find the source for this story <a href="#">here</a></p>
-            <h2>More From South Soju</h2>
-            <div class="contain-three"></div>
+            <h2 style="margin: 35px 0 0 0">More From South Soju</h2>
+            <hr style="margin: 0 0 15px 0" />
+            <div class="contain-three">
+                <div class="tripple-card">
+                    <div class='image-card'>
+                    </div>
+                    <h3 class="title-text">What I learned from using stock images.</h3>
+                    <p>Learn how stock images can change your life for the better. A compelling personal story.</p>
+                    <p>10 May 2021</p>
+                </div>
+                <div class="tripple-card">
+                    <div class='image-card-1'>
+                    </div>
+                    <h3 class="title-text">What I learned from using stock images.</h3>
+                    <p>Learn how stock images can change your life for the better. A compelling personal story.</p>
+                    <p>10 May 2021</p>
+                </div>
+                <div class="tripple-card">
+                    <div class='image-card-2'>
+                    </div>
+                    <h3 class="title-text">What I learned from using stock images.</h3>
+                    <p>Learn how stock images can change your life for the better. A compelling personal story.</p>
+                    <p>10 May 2021</p>
+                </div>
+            </div>
             <hr />
             <section class='footer'>
                 <div>Copyright MIT3008</div>
@@ -236,6 +339,8 @@
         <script src="script.js"></script>
         <script src="regressor.js"></script>
         <script src="plot.js"></script>
+
+        <script src="regressions/calltoactionregressgion.js"></script>
 
 </body>
 

@@ -34,6 +34,7 @@ const plotMain = (namesList) => {
         let country_data = GLOBAL_CSV_DATA.filter(d => d.country == string.Name);
         dataTraces.push(...addTrace(country_data, string.Name));
     });
+    // SHOWS ALL PREDICTED TRACES
     // Plotly.newPlot('myDiv', dataTraces, baseLayout);
 }
 const countryTraces = (csv_data) => {
@@ -42,7 +43,6 @@ const countryTraces = (csv_data) => {
     setupYearDataDict();
     // Read unique countries names
     Plotly.d3.csv("datacountries.csv", plotMain);
-    console.log("Got meta: ", dataByYear);
 }
 
 const updateMean = (currentMean, count, newVal) => {
@@ -111,7 +111,6 @@ const addTrace = (country_data, countryName) => {
     };
 
     return [past, future];
-
 }
 
 Plotly.d3.csv("mortality.csv", countryTraces);

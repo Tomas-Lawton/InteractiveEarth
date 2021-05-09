@@ -1,3 +1,28 @@
+let isShowing = false;
+
+document.getElementsByClassName('dropdown-link')[0].addEventListener('click', () => {
+    if (!isShowing) {
+        document.getElementsByClassName('dropdown-tab')[0].style.height = '100%';
+        isShowing = true;
+    } else {
+        document.getElementsByClassName('dropdown-tab')[0].style.height = '0px';
+        isShowing = false;
+
+    }
+});
+
+document.getElementsByClassName('dropdown-link')[1].addEventListener('click', () => {
+    if (!isShowing) {
+        document.getElementsByClassName('dropdown-tab')[1].style.height = '100%';
+        isShowing = true;
+    } else {
+        document.getElementsByClassName('dropdown-tab')[1].style.height = '0px';
+        isShowing = false;
+
+    }
+});
+
+
 const roundToFive = x => Math.round(x / 5) * 5
 let year = 2050;
 
@@ -33,11 +58,11 @@ function quickSortBasic(array) {
 
 
 const calculateMetaData = (worldData) => {
-    console.log("INPUT: ", worldData)
     var maxValue = 0;
     var maxCountry = '';
     var minValue = 10000;
     var minCountry = '';
+    var countryCount = 0;
 
     var Mean = null;
     var meanCount = 0;
@@ -66,15 +91,28 @@ const calculateMetaData = (worldData) => {
         Median.push(keyValue);
     }
 
+
     // simple quickSort from the internet
     const sortedMedianArray = quickSortBasic(Median, 0, Median.length - 1);
     const medianCountry = sortedMedianArray[Math.floor(sortedMedianArray.length / 2)];
 
+    const countriesAboveZero = (array) => {
+        let counter = 0;
+        for (let i = array.length - 1; i >= 0; i--) { //can't be higher
+            if (array[i].value === 0) { return counter };
+            counter++;
+        }
+        return array.length;
+    }
+    countryCount = countriesAboveZero(sortedMedianArray);
+
+
     document.getElementById('highest').innerHTML = `${maxCountry} ${maxValue}`;
-    document.getElementById('lowest').innerHTML = `${minCountry} ${minValue}`;
     document.getElementById('mean').innerHTML = `Global Mean: ${Mean.toPrecision(4)}`;
     document.getElementById('median').innerHTML = `Global Median: ${medianCountry.value.toPrecision(4)}`;
     document.getElementById('median-country').innerHTML = `${medianCountry.key}`;
+    document.getElementById('lowest').innerHTML = `${countryCount} Countries Above Zero`;
+    document.getElementById('info-text').innerHTML = countryCount === 215 ? `* All countries in data` : `` //use ternary to avoid "false"
 }
 
 //Create custom slider using p5.
@@ -300,7 +338,6 @@ const numberWithCommas = (x) => {
 }
 
 function getPolygonLabel(countryInfo, countryData) {
-    console.log('info, ', countryInfo);
     return `
             <div class="card">
                 <h3 class="card-title">${countryInfo.NAME}</h3>
@@ -407,7 +444,7 @@ function updatePolygonsData(earthDataCurrentYear) {
     // colorScale.domain([0, maxVal]);
 
     // Hard coded because I know the range and want it linear
-    const maxVal = Math.pow(500, 1 / 4);
+    const maxVal = Math.pow(600, 1 / 4);
     colorScale.domain([0, maxVal]);
     world.polygonsData(featureCollection);
 }
@@ -418,7 +455,7 @@ async function updatePointOfView() {
         world.pointOfView({
                 lat: latitude,
                 lng: longitude,
-                altitude: 2
+                altitude: 2.15
             },
             3000
         );

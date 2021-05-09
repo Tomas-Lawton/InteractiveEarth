@@ -101,7 +101,7 @@ body {
 
 .grid-item-a h1 {
     text-transform: uppercase;
-    font-size: 6em;
+    font-size: 6vw;
 }
 
 .grid-item-a h2:nth-child(even) {
@@ -109,17 +109,17 @@ body {
 }
 
 .grid-item-a h2:nth-child(odd) {
-    font-size: 1.1em;
+    font-size: 1.1vw;
     margin-bottom: 10px;
 }
 
 .grid-item-a h2 {
     color: white;
-    font-size: 1.8em;
+    font-size: 1.8vw;
 }
 
 .grid-item-a p {
-    font-size: 0.8em;
+    font-size: 0.8vw;
 }
 
 .key-style {
@@ -150,7 +150,7 @@ body {
 }
 
 .grid-right-item-a h2 {
-    font-size: 1.1em;
+    font-size: 1.1vw;
 }
 
 
@@ -215,12 +215,12 @@ button:hover {
 
 .container-title h1 {
     text-transform: uppercase;
-    font-size: 3.2em;
+    font-size: 3.2vw;
     font-weight: bold;
 }
 
 .container-title p {
-    font-size: 1em;
+    font-size: 1vw;
 }
 
 .card {
@@ -245,11 +245,11 @@ button:hover {
 
 .card-title {
     font-weight: bold;
-    font-size: 1.15em;
+    font-size: 1.15vw;
 }
 
 .card:nth-child(n + 1) {
-    font-size: 0.8em;
+    font-size: 0.8vw;
 }
 
 .container {
@@ -307,12 +307,30 @@ section .contain-scroll-button {
     padding-bottom: 10px;
 }
 
+.dropdown-tab {
+    height: 0px;
+    transition: 1s;
+    overflow: hidden;
+}
+
 .white-wrapper {
     /* background: white; */
     /* color: rgba(8, 8, 8, 0.76); */
     /* standard drop */
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding-bottom: 20px;
+}
+
+.mylegend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    /* align-content: flex-start; */
+}
+
+.mylegend p {
+    display: block;
+    width: 100%;
 }
 
 .content-margin {
@@ -328,26 +346,39 @@ section .contain-scroll-button {
 .main-content h2 {
     font-family: 'Merriweather', serif;
     font-weight: bold;
-    font-size: 2.6em;
+    font-size: 2.6vw;
     margin: 20px 0;
     width: 100%;
 }
 
 .main-content p {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.1vw;
     width: 100%;
     text-align: left;
-    margin: 2% 0;
+    /* margin: 2% 0; */
 }
 
 .main-content .quote {
     font-family: 'Merriweather', serif;
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.3vw;
     text-align: left;
     width: 100%;
-    margin: 2% 0;
+    margin: 15% 0;
+}
+
+.globe-contain {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.zero-margins {
+    margin: 0;
+    padding: 0;
 }
 
 .chart-center {
@@ -365,22 +396,153 @@ section .contain-scroll-button {
 }
 
 .middle-margin {
+    margin: 3% 15%;
+    padding-top: 5%;
+}
+
+.middle-margin-custom {
     margin: 7% 15%;
+    padding-top: 5%;
+    margin-bottom: 20px;
+}
+
+.globe-grow {
+    transition: 300ms;
+    animation: scale 2s infinite;
+    transform: scale(1);
+}
+
+.globe-space {
+    margin: 10px;
+}
+
+.contain-three {
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+    margin-bottom: 70px;
+    padding: 20px 0;
+}
+
+.stock-0 {
+    background-image: url("assets/1.jpg");
+}
+
+.tripple-card {
+    background-color: white;
+    width: 22vw;
+    height: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    /* 5px rounded corners */
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.tripple-card p {
+    font-size: 1vw;
+    color: #181718;
+    padding: 30px 30px 0 30px;
+    display: block;
+}
+
+.image-card {
+    color: #181718;
+    background-image: url("assets/1.jpg");
+    background-repeat: no-repeat;
+    /* background-size: auto; */
+    background-size: 100% auto;
+    border-radius: 15px 15px 0 0;
+    height: 180px;
+}
+
+.image-card-1 {
+    color: #181718;
+    background-image: url("assets/2.jpg");
+    background-repeat: no-repeat;
+    /* background-size: auto; */
+    background-size: 100% auto;
+    border-radius: 15px 15px 0 0;
+    height: 180px;
+}
+
+.image-card-2 {
+    color: #181718;
+    background-image: url("assets/3.jpg");
+    background-position: 0 -50px;
+    background-repeat: no-repeat;
+    /* background-size: auto; */
+    background-size: 100% auto;
+    border-radius: 15px 15px 0 0;
+    height: 180px;
+}
+
+.tripple-card p:last-child {
+    padding-bottom: 30px;
+}
+
+.title-text {
+    color: #181718;
+    margin: 30px 30px 0 30px;
+    font-weight: bold;
+    font-size: 1.3vw;
+}
+
+.tripple-card img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+@keyframes scale {
+    50% {
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.globe-grow:hover {
+    width: 75px;
+}
+
+.dropdown-link:hover {
+    width: 102%;
+    height: 102%;
 }
 
 .middle-margin h2 {
-    padding-top: 40px
+    /* padding-top: 40px */
 }
 
 .frame-style {
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    box-shadow: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    /* 5px rounded corners */
+    width: 103%;
+    height: 600px;
+    border: none;
+    margin-left: -2px;
+    margin-right: -5px;
+    margin-top: -4px;
+}
+
+.frame-style-image {
+    box-shadow: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 5px;
     /* 5px rounded corners */
     width: 100%;
-    height: 600px;
+    height: auto;
+    margin-top: 0;
     border: none;
-    border-color: white;
+    margin: auto;
 }
 
 .bottom-content-wrap {
