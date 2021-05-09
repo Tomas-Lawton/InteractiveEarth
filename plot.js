@@ -15,11 +15,13 @@ const lineColours = [
 // I've #lostheplot
 const mainPlotLayout = {
     margin: { 'l': 30, 'r': 20, 't': 20, 'b': 120 },
+    legend: {
+        x: 1,
+        xanchor: 'right',
+        y: 0.97
+    },
     paper_bgcolor: "rgba( 144, 19, 254, 0)", //invisable backgrounds
     plot_bgcolor: "rgba( 144, 19, 254, 0)",
-    font: {
-        color: '#ffffff'
-    },
     showlegend: true,
     barmode: 'group',
     font: {
@@ -27,6 +29,7 @@ const mainPlotLayout = {
         size: 15,
         color: '#ffffff'
     },
+    // legend: { "orientation": "h" }
 };
 // Change this to compare
 var mostChangeInNumDeaths = {
@@ -71,7 +74,7 @@ var greatestPercent = {
     ],
     y: [98, 98, 98],
     type: 'bar',
-    name: 'Max 3'
+    name: 'Max 3',
 };
 
 var LowestPercent = {
@@ -88,7 +91,7 @@ var LowestPercent = {
 
 const groupTrace = [mostChangeInNumDeaths, mostChangeInNumDeathsNow];
 // const groupTraceLeast = [leastChangeInNumDeaths, leastChangeInNumDeathsLatest];
-const groupTracePercent = [LowestPercent, greatestPercent];
+const groupTracePercent = [greatestPercent, LowestPercent];
 
 Plotly.newPlot('plot0', groupTrace, mainPlotLayout);
 // Plotly.newPlot('plot1', groupTraceLeast, mainPlotLayout);

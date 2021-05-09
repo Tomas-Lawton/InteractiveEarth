@@ -104,22 +104,21 @@ body {
     font-size: 6vw;
 }
 
-.grid-item-a h2:nth-child(even) {
-    color: #A92CA5
+.purple {
+    color: #A92CA5;
+    font-size: 1.8vw;
 }
 
-.grid-item-a h2:nth-child(odd) {
+.notpurple {
     font-size: 1.1vw;
     margin-bottom: 10px;
-}
-
-.grid-item-a h2 {
     color: white;
-    font-size: 1.8vw;
 }
 
 .grid-item-a p {
     font-size: 0.8vw;
+    text-align: left;
+    padding-bottom: 10px;
 }
 
 .key-style {
@@ -191,13 +190,15 @@ button:hover {
     color: #ffffff;
     height: 100vh;
     width: 100%;
-    display: grid;
-    place-items: center;
-    text-align: center;
     z-index: 2;
 }
 
 .hero-spacer {
+    text-align: center;
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 40%;
     opacity: 0;
     transition: 0.3s;
     visibility: "hidden";
@@ -206,6 +207,11 @@ button:hover {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    width: 33vw;
+}
+
+.hero-spacer p {
+    padding: 10px 0;
 }
 
 .container-title h1::selection {
@@ -220,7 +226,7 @@ button:hover {
 }
 
 .container-title p {
-    font-size: 1vw;
+    font-size: 1.1vw;
 }
 
 .card {
@@ -357,6 +363,7 @@ section .contain-scroll-button {
     width: 100%;
     text-align: left;
     /* margin: 2% 0; */
+    margin-bottom: 3%;
 }
 
 .main-content .quote {

@@ -107,11 +107,11 @@ const calculateMetaData = (worldData) => {
     countryCount = countriesAboveZero(sortedMedianArray);
 
 
-    document.getElementById('highest').innerHTML = `${maxCountry} ${maxValue}`;
+    document.getElementById('highest').innerHTML = `${maxCountry} (${maxValue})`;
     document.getElementById('mean').innerHTML = `Global Mean: ${Mean.toPrecision(4)}`;
     document.getElementById('median').innerHTML = `Global Median: ${medianCountry.value.toPrecision(4)}`;
     document.getElementById('median-country').innerHTML = `${medianCountry.key}`;
-    document.getElementById('lowest').innerHTML = `${countryCount} Countries Above Zero`;
+    document.getElementById('lowest').innerHTML = `Above Zero: ${countryCount}`;
     document.getElementById('info-text').innerHTML = countryCount === 215 ? `* All countries in data` : `` //use ternary to avoid "false"
 }
 
