@@ -224,16 +224,15 @@ const handleCombinedData = (data) => {
         width: innerWidth - innerWidth * 0.29,
         height: innerHeight * 0.85,
         legend: { "orientation": "h" },
-        margin: { 'l': 20, 'r': 20, 't': 10, 'b': 30 },
+        margin: { 'l': 60, 'r': 20, 't': 10, 'b': 50 },
         xaxis: {
+            title: "DALYs per 100,000 people. ",
             autorange: true,
-            // type: 'date',
             gridcolor: "rgba(255,255,255,0.1)",
         },
         yaxis: {
+            title: "Prevalence of undernourishment (% of population) by country.",
             autorange: true,
-            // range: ['0', '500'],
-            // type: 'linear',
             gridcolor: "rgba(255,255,255,0.1)",
         }
     };

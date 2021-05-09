@@ -337,6 +337,7 @@ section .contain-scroll-button {
 .mylegend p {
     display: block;
     width: 100%;
+    margin: 0;
 }
 
 .content-margin {

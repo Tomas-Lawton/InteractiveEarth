@@ -168,7 +168,7 @@ function draw() {
         upDateYearData(ellipseY);
     }
     animateThumb();
-    let s = 'Scroll through time';
+    let s = "Data After 2017 is Predicted";
     fill(255, alpha);
     text(s, ellipseX + 30, ellipseY, 300, 40);
 }
