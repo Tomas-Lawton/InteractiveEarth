@@ -107,7 +107,7 @@ const calculateMetaData = (worldData) => {
     countryCount = countriesAboveZero(sortedMedianArray);
 
 
-    document.getElementById('highest').innerHTML = `${maxCountry} (${maxValue})`;
+    document.getElementById('highest').innerHTML = `${maxCountry} ${maxValue}`;
     document.getElementById('mean').innerHTML = `Global Mean: ${Mean.toPrecision(4)}`;
     document.getElementById('median').innerHTML = `Global Median: ${medianCountry.value.toPrecision(4)}`;
     document.getElementById('median-country').innerHTML = `${medianCountry.key}`;

@@ -14,12 +14,13 @@ const lineColours = [
 
 // I've #lostheplot
 const mainPlotLayout = {
-    margin: { 'l': 30, 'r': 20, 't': 20, 'b': 120 },
+    margin: { 'l': 40, 'r': 20, 't': 20, 'b': 120 },
     legend: {
         x: 1,
         xanchor: 'right',
         y: 0.97
     },
+    width: innerWidth - innerWidth * 0.7,
     paper_bgcolor: "rgba( 144, 19, 254, 0)", //invisable backgrounds
     plot_bgcolor: "rgba( 144, 19, 254, 0)",
     showlegend: true,
@@ -156,7 +157,7 @@ const handleChangeTimeSeries = (data) => {
 
     var layoutExtension = {
         ...mainPlotLayout,
-        margin: { 'l': 23, 'r': 10, 't': 20, 'b': 50 },
+        margin: { 'l': 30, 'r': 10, 't': 20, 'b': 50 },
         width: innerChartSize,
         hight: innerChartSize * 0.85,
         title: null,
@@ -246,7 +247,7 @@ const reuseLayout = {
     width: innerWidth / 3.2,
     height: innerHeight * 0.4,
     legend: { "orientation": "h" },
-    margin: { 'l': 30, 'r': 20, 't': 10, 'b': 30 },
+    margin: { 'l': 40, 'r': 20, 't': 10, 'b': 30 },
     xaxis: {
         autorange: true,
         gridcolor: "rgba(255,255,255,0.1)",
@@ -273,13 +274,12 @@ const handleCombinedGEO = (data) => {
         const nourishment = row['Longitude'];
         const disease = row['Latitude'];
         const mortality = row['Child mortality (IHME, 2018)'];
-        if (nourishment > 0 &&
-            nourishment !== '#N/A' &&
-            disease > 0 &&
+        if (
+            nourishment !== '#N/A' && //allow negatives
             disease !== '#N/A') {
             baseTrace.y.push(nourishment);
             baseTrace.x.push(disease);
-            baseTrace.marker.size.push(mortality / 2);
+            baseTrace.marker.size.push(mortality / 3);
             baseTrace.text.push(row.Country);
             baseTrace.marker.color.push(colorScale(Math.pow(mortality * 2, 1 / 4)));
         }
@@ -306,13 +306,13 @@ const handleCombinedSizeandPop = (data) => {
         const nourishment = row['Landmass'];
         const disease = row['Total Population'];
         const mortality = row['Child mortality (IHME, 2018)'];
-        if (nourishment > 0 &&
+        if (nourishment > 0 && //no negatives
             nourishment !== '#N/A' &&
             disease > 0 &&
             disease !== '#N/A') {
             baseTrace.y.push(nourishment);
             baseTrace.x.push(disease);
-            baseTrace.marker.size.push(mortality / 2);
+            baseTrace.marker.size.push(mortality / 3);
             baseTrace.text.push(row.Country);
             baseTrace.marker.color.push(colorScale(Math.pow(mortality * 2, 1 / 4)));
         }
