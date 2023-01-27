@@ -1,7 +1,8 @@
-# Links Not Directly in Project
+# Live Demo
 
+Open the app here: [Github Pages](https://tomas-lawton.github.io/Museum-Child-Mortality/)
 
-https://tomas-lawton.github.io/Museum-Child-Mortality/
+![Screenshot of Earth](https://github.com/Tomas-Lawton/InteractiveEarth/blob/master/screenshot/screenshot_earth.png)
 
 
 
